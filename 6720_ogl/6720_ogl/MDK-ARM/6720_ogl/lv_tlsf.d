@@ -1,0 +1,16 @@
+6720_ogl\lv_tlsf.o: ..\LVGL\src\misc\lv_tlsf.c
+6720_ogl\lv_tlsf.o: ..\LVGL\src\misc\../lv_conf_internal.h
+6720_ogl\lv_tlsf.o: C:\Users\DELL\AppData\Local\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+6720_ogl\lv_tlsf.o: ..\LVGL\src\misc\../lv_conf_kconfig.h
+6720_ogl\lv_tlsf.o: ../LVGL/examples/porting/../../lv_conf.h
+6720_ogl\lv_tlsf.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
+6720_ogl\lv_tlsf.o: C:\Users\DELL\AppData\Local\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+6720_ogl\lv_tlsf.o: ../Core/Inc/FreeRTOSConfig.h
+6720_ogl\lv_tlsf.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
+6720_ogl\lv_tlsf.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
+6720_ogl\lv_tlsf.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
+6720_ogl\lv_tlsf.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
+6720_ogl\lv_tlsf.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
+6720_ogl\lv_tlsf.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
+6720_ogl\lv_tlsf.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
+6720_ogl\lv_tlsf.o: C:\Users\DELL\AppData\Local\Keil_v5\ARM\ARMCC\Bin\..\include\string.h

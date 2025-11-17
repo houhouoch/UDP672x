@@ -1,0 +1,14 @@
+6720_ogl\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/croutine.c
+6720_ogl\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
+6720_ogl\croutine.o: C:\Users\DELL\AppData\Local\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+6720_ogl\croutine.o: C:\Users\DELL\AppData\Local\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+6720_ogl\croutine.o: ../Core/Inc/FreeRTOSConfig.h
+6720_ogl\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
+6720_ogl\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
+6720_ogl\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
+6720_ogl\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
+6720_ogl\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
+6720_ogl\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
+6720_ogl\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
+6720_ogl\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/croutine.h
+6720_ogl\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h

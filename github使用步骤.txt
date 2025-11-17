@@ -1,0 +1,9 @@
+2025/11/17
+为了使项目更好的管理，我加入Github
+1、首先需要创建Github的账户
+2、安装两个软件，目的是为了将本地文件上传到Github云端，并能做一个记录
+3、软件分别是TortoiseGit、gitbash
+其中：gitbash是Window下的命令行工具  我们可以使用其配置语言将文件上传到云端
+TortoiseGit 的使用详解： https://blog.csdn.net/scott198510/article/details/138337623?ops_request_misc=elastic_search_misc&request_id=f758a1936aa1e3cfb078158c4a5cb90f&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-138337623-null-null.142^v102^pc_search_result_base6&utm_term=tortoisegit&spm=1018.2226.3001.4187
+
+和 https://www.cnblogs.com/xuwenjin/p/8573603.html

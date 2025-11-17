@@ -1,0 +1,293 @@
+//***************  已完成    ***************************//
+时钟初始化
+LED
+BTN
+Encoder
+Beep
+LCD-ST7789驱动 
+以上为基础外设 均已完成初始化
+Free RTOS+LVGL 已移植 9.28
+加入GUI Guider 10.9
+//
+//******************************************//
+
+//***************  时钟输出    ***************************//
+ 从cubemx移植 会报错：Error_Handler();
+6720不具备外部晶振
+所以要在 SystemClock_Config（）加入以下代码
+   //若外部晶振加载不成功
+    if(SET != __HAL_RCC_GET_FLAG(RCC_FLAG_HSERDY))
+    {
+        RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+        RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+        RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+        RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+        RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
+        RCC_OscInitStruct.PLL.PLLM = 1;
+        RCC_OscInitStruct.PLL.PLLN = 10;
+        RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV7;
+        RCC_OscInitStruct.PLL.PLLQ = RCC_PLLQ_DIV2;
+        RCC_OscInitStruct.PLL.PLLR = RCC_PLLR_DIV2;
+        if(HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+        {
+            Error_Handler();
+        }
+    }
+    /** Initializes the CPU, AHB and APB buses clocks
+    */
+    RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK
+                                  | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
+    RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+    RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+    RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+    RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+    if(HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_4) != HAL_OK)
+    {
+        Error_Handler();
+    }
+    PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART2;
+    PeriphClkInit.Usart2ClockSelection = RCC_USART2CLKSOURCE_HSI;
+    if(HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
+    {
+        Error_Handler();
+    }
+    /** Configure the main internal regulator output voltage
+    */
+    if(HAL_PWREx_ControlVoltageScaling(PWR_REGULATOR_VOLTAGE_SCALE1) != HAL_OK)
+    {
+        Error_Handler();
+    }
+//******************************************//
+
+
+//*****************   LED    *************************//
+LED :设置默认输出高电平----PNP管 （基极为低 才导通）
+LED_CC&CV   默认输出低电平   ----- NPN管子 （基极为高 才导通）
+
+SET:LED引脚-从浮空输出--- 上拉输出
+CV&CC--浮空---下拉
+//******************************************//
+
+//*****************  BTN  *************************//
+按键通过矩阵轮询的方式去扫描
+当检测到某行某列的按键值为0   读出数据
+设置CUBEMX时候 键位输出为开漏  然后带上拉
+6720原程序为 行键为output 列键为input
+
+注意：判断按键 
+      stateFlag=keyScan(&returnKey);
+      if(stateFlag == KEY_STATE_CLICKED || stateFlag == KEY_STATE_LONGGP)
+按键的状态来进行判断
+
+按键另外一种设置：
+#define DEBOUNCE_MS        20     // 去抖：15~30ms 自行微调
+#define SHORTPRESS_TIME    80     // 短按阈值：确保 > DEBOUNCE_MS
+#define LONGPPRESS_TIME    800    // 长按阈值
+#define BUTTON_LONGPRESS_AUTO_RETURN 1
+
+uint8_t keyScan(uint8_t *pkey)
+{
+    if (!pkey) return KEY_STATE_RELEASED;
+    *pkey = 0xff;
+
+    // —— 去抖缓存 —— 
+    static uint8_t  debRaw    = 0xff;   // 最新原始读数
+    static uint8_t  stableKey = 0xff;   // 去抖后的稳定值
+    static uint32_t tChange   = 0;      // 原始值变化时刻
+
+    // —— 状态机缓存 —— 
+    static uint8_t  lastKey   = 0xff;   // 上一稳定值
+    static uint8_t  fired     = 0;      // 本次按压是否已上报事件
+    static uint8_t  holdSent  = 0;      // 是否已上报 HOLD
+    static uint32_t tPress    = 0;      // 按下开始时刻（去抖后）
+
+    uint32_t now = HAL_GetTick();
+    uint8_t  raw = matrixButton_Scan();
+
+    // 去抖：原始值变了就重计时，稳定 DEBOUNCE_MS 才采纳
+    if (raw != debRaw) { debRaw = raw; tChange = now; }
+    if ((now - tChange) >= DEBOUNCE_MS) stableKey = debRaw;
+
+    // ======= 边沿：稳定值发生变化 =======
+    if (stableKey != lastKey)
+    {
+        if (stableKey != 0xff)  // 按下沿
+        {
+            tPress   = now;
+            fired    = 0;
+            holdSent = 0;
+        }
+        else                    // 释放沿
+        {
+            if (!fired)         // 还没上报过事件
+            {
+                uint32_t dur = now - tPress;
+                if (dur >= LONGPPRESS_TIME) {
+                    *pkey = lastKey;
+                    lastKey = stableKey;
+                    fired = 1;
+                    return KEY_STATE_LONGGP;
+                } else if (dur >= SHORTPRESS_TIME) {
+                    *pkey = lastKey;
+                    lastKey = stableKey;
+                    fired = 1;
+                    return KEY_STATE_CLICKED;
+                }
+                // 小于短按阈值：当抖/误触，忽略
+            }
+        }
+
+        lastKey = stableKey;
+        return KEY_DEFAULT;     // 边沿但未形成事件
+    }
+    // ======= 按住阶段（稳定为按下） =======
+#if (BUTTON_LONGPRESS_AUTO_RETURN != 0)
+    if (stableKey != 0xff && !fired)
+    {
+        uint32_t dur = now - tPress;
+        if (dur >= LONGPPRESS_TIME) {
+            *pkey = stableKey;
+            fired = 1;                      // 避免松手再触发一次
+            return KEY_STATE_LONGGP;
+        }
+        // 可选：按住超过短按阈值先发一个 HOLD（只发一次）
+        if (!holdSent && dur > (SHORTPRESS_TIME + 1)) {
+            *pkey = stableKey;
+            holdSent = 1;
+            // 若你不想松手再触发 CLICK/LONG，就把下面这句打开
+            // fired = 1;
+            return KEY_STATE_HOLD;
+        }
+    }
+#endif
+    return KEY_DEFAULT;
+}
+
+//**********************Encoder push ******************//
+(区别与9600  6720为内部上拉  判断为0时 才为按下)
+    if(HAL_GPIO_ReadPin(CODER_OK_GPIO_Port, CODER_OK_Pin) == 0) {
+        return H_count * V_count;
+    }
+//******************************************//
+
+//*****************  Encoder  *************************//
+编码器集电极开路  状态不明    需要内部进行上拉--pull_on
+//******************************************//
+
+//*****************  BEEP  *************************//
+Beep函数 是利用定时器中断的方式，每20ms中断一次，(tim16)
+//******************************************//
+
+//*****************  LCD_ST7789V  *************************//
+使用环境：
+屏幕大小：240*320
+LVGL  8.3.1
+GUI Guider  v1.9.1
+屏幕刷新---
+他的SPI Clock_polarity 需要为LOW
+
+/*Swap the 2 bytes of RGB565 color. Useful if the display has an 8-bit interface (e.g. SPI)*/
+#define LV_COLOR_16_SWAP 1  设置为1 
+//******************************************//
+移植网站：https://blog.csdn.net/qq_36347513/article/details/122719322?ops_request_misc=%257B%2522request%255Fid%2522%253A%25226163925ce0627bb27319ae36ddaf909a%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=6163925ce0627bb27319ae36ddaf909a&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~baidu_landing_v2~default-2-122719322-null-null.142^v102^pc_search_result_base4&utm_term=cubemx%2Blvgl&spm=1018.2226.3001.4187
+github：
+https://github.com/Manahhl/STM32L431_st7789v_spi_dma_lvgl
+//*******************GUI ***********************//
+在使用 lvglFontTool 时，要使用awesome时， 直接复制其对应标签即可，而不是使用\UF000（要设置为UTF-8格式）
+
+led部件小灯：在初始化加入这个
+    static led_blink_ctx_t g_led_ctx;   // 放静态，全局都行
+    g_led_ctx.led = ui->screen_1_led_1;
+    g_led_ctx.on  = true;                // 初始点亮
+
+    lv_timer_create(led_blink_cb, 200, &g_led_ctx);
+然后在顶上加入状态
+typedef struct {
+    lv_obj_t *led;
+    bool on;
+} led_blink_ctx_t;
+
+
+
+static void led_blink_cb(lv_timer_t *t)
+{
+    led_blink_ctx_t *ctx = (led_blink_ctx_t *)t->user_data;
+    ctx->on = !ctx->on;
+    if(ctx->on) {
+        lv_led_set_brightness(ctx->led, 255);
+        lv_led_set_color(ctx->led, lv_color_hex(0x9fff00)); // 强制保持绿色
+    } else {
+        lv_led_set_brightness(ctx->led, 0);
+        // 可选：也可以不改颜色，只改亮度
+    }
+}
+6720（old）使用的是容器的叠加，而不是界面的添加，通过容器隐藏与显示做到界面切换的效果：单屏+页容器。
+//******************************************//
+
+到10.29为止 已经完成界面的大致设计
+完成以下功能：
+//**************--状态栏--***************//
+BEEP & LOCK &状态LED 
+LOCK状态会随着按下LOCK按钮进行改变  当LOCK生效时，LOCK按钮高亮  （不会）
+BEEP图标 会随着SET界面中蜂鸣器的设置进行打开与关闭
+
+//**************--输出界面--***************//
+设置值与保护值的操作:
+设置电压电流值 以及功率（电压与电流的乘积 且结果保留2位小数）
+保护值：设置保护值且确定后的操作判断-->
+设置值>保护值  则AUTO修改设置值为保护值
+设置值的上限为 保护值
+
+//**************--SET界面--***************//
+设置了7个按钮  通过编码器的上下旋 进行切换按钮焦点
+通过编码器的按下&ENTER按钮确定其设置值
+
+！！！新建的容器 --》一定要先绑定容器！！
+
+
+//**************--输出--***************//
+PB1:OUT_ONOFF_Pin  为控制输出电压  --应该把他硬件强制下拉为0  
+
+CC和CV模式 的判断选择： 在CC_TEST  ：由硬件自己动判断
+OTP :过温保护
+sense：补偿过大
+
+
+
+输出更新在刷新W的时候      
+product_update_W();
+  if(OUT_ONOFF_led_on){
+    power_apply_voltage_from_label();
+  }
+
+//11.10
+电流电压设置基本完成，还差回显（adc）
+电流线性映射参数
+counts_per_amp' = 10000 / k ≈ 7502.92
+offset_counts_a' = 0 - 10000*b/k ≈ -75.52
+电压
+#ifndef POW_PWM_MAX_CCR
+#define POW_PWM_MAX_CCR          60000      /* 你的 ARR≈60000 */
+#endif
+#ifndef VOL_PWM_COUNTS_PER_V
+#define VOL_PWM_COUNTS_PER_V     1000       /* 1V -> 1000 计数 */
+    /* 你的电压标定保留： */
+    set_v = (set_v + 0.041f) / 1.026f;
+    if (set_v < 0) set_v = 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
