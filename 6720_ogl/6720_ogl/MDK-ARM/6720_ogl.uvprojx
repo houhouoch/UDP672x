@@ -1134,6 +1134,11 @@
               <FileType>1</FileType>
               <FilePath>..\Devices\sd6500.c</FilePath>
             </File>
+            <File>
+              <FileName>EEPROM_Device.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Devices\EEPROM_Device.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

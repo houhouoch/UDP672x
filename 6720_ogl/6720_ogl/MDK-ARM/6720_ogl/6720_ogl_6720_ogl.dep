@@ -1808,7 +1808,7 @@ I (../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart.h)(0x68C231AD)
 I (../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart_ex.h)(0x68C231AD)
 I (../Core/Inc/tim.h)(0x69157C8F)
 I (C:\Users\DELL\AppData\Local\Keil_v5\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
-F (..\Devices\I2C_Device.c)(0x69142ED2)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I ../Drivers/CMSIS/Include -I ../Devices -I ../LVGL -I ../LVGL/examples/porting -I ../LVGL/src -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Tasks -I ../GUI_APP/custom -I ../GUI_APP/generated -I ../GUI_APP -I ../GUI_APP/generated/guider_customer_fonts -I ../GUI_APP/generated/guider_fonts -I ../GUI_User -I ../LVGL/src/widgets --locale=english --diag_suppress=1211,1-I.\RTE\_6720_ogl-IC:\Users\DELL\AppData\Local\Arm\Packs\ARM\CMSIS\6.1.0\CMSIS\Core\Include-IC:\Users\DELL\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\1.4.0\Device\Include-D__UVISION_VERSION="540" -DSTM32L431xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L431xx -DUDP6720 -DUSE_STDPERIPH_DRIVER-o 6720_ogl\i2c_device.o --omf_browse 6720_ogl\i2c_device.crf --depend 6720_ogl\i2c_device.d)
+F (..\Devices\I2C_Device.c)(0x691C0E2E)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I ../Drivers/CMSIS/Include -I ../Devices -I ../LVGL -I ../LVGL/examples/porting -I ../LVGL/src -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Tasks -I ../GUI_APP/custom -I ../GUI_APP/generated -I ../GUI_APP -I ../GUI_APP/generated/guider_customer_fonts -I ../GUI_APP/generated/guider_fonts -I ../GUI_User -I ../LVGL/src/widgets --locale=english --diag_suppress=1211,1-I.\RTE\_6720_ogl-IC:\Users\DELL\AppData\Local\Arm\Packs\ARM\CMSIS\6.1.0\CMSIS\Core\Include-IC:\Users\DELL\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\1.4.0\Device\Include-D__UVISION_VERSION="540" -DSTM32L431xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L431xx -DUDP6720 -DUSE_STDPERIPH_DRIVER-o 6720_ogl\i2c_device.o --omf_browse 6720_ogl\i2c_device.crf --depend 6720_ogl\i2c_device.d)
 I (..\Devices\I2C_Device.h)(0x69142ED2)
 I (../Core/Inc/main.h)(0x69157C90)
 I (../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal.h)(0x68C231AD)
@@ -1889,6 +1889,59 @@ I (../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart_ex.h)(0x68C231AD)
 I (..\Devices\I2C_Device.h)(0x69142ED2)
 I (..\Devices\GPIO_Device.h)(0x65F2BCC2)
 I (C:\Users\DELL\AppData\Local\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
+F (..\Devices\EEPROM_Device.c)(0x691C1717)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I ../Drivers/CMSIS/Include -I ../Devices -I ../LVGL -I ../LVGL/examples/porting -I ../LVGL/src -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Tasks -I ../GUI_APP/custom -I ../GUI_APP/generated -I ../GUI_APP -I ../GUI_APP/generated/guider_customer_fonts -I ../GUI_APP/generated/guider_fonts -I ../GUI_User -I ../LVGL/src/widgets --locale=english --diag_suppress=1211,1-I.\RTE\_6720_ogl-IC:\Users\DELL\AppData\Local\Arm\Packs\ARM\CMSIS\6.1.0\CMSIS\Core\Include-IC:\Users\DELL\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\1.4.0\Device\Include-D__UVISION_VERSION="540" -DSTM32L431xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L431xx -DUDP6720 -DUSE_STDPERIPH_DRIVER-o 6720_ogl\eeprom_device.o --omf_browse 6720_ogl\eeprom_device.crf --depend 6720_ogl\eeprom_device.d)
+I (..\Devices\EEPROM_Device.h)(0x691BE231)
+I (../Core/Inc/main.h)(0x69157C90)
+I (../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal.h)(0x68C231AD)
+I (../Core/Inc/stm32l4xx_hal_conf.h)(0x6901D856)
+I (../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_rcc.h)(0x68C231AD)
+I (../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_def.h)(0x68C231AD)
+I (../Drivers/CMSIS/Device/ST/STM32L4xx/Include/stm32l4xx.h)(0x68C231AD)
+I (../Drivers/CMSIS/Device/ST/STM32L4xx/Include/stm32l431xx.h)(0x68C231AD)
+I (../Drivers/CMSIS/Include/core_cm4.h)(0x68C22F6E)
+I (C:\Users\DELL\AppData\Local\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E8E3CC2)
+I (../Drivers/CMSIS/Include/cmsis_version.h)(0x68C22F6E)
+I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x68C22F6E)
+I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x68C22F6E)
+I (../Drivers/CMSIS/Include/mpu_armv7.h)(0x68C22F6E)
+I (../Drivers/CMSIS/Device/ST/STM32L4xx/Include/system_stm32l4xx.h)(0x68C231AD)
+I (../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h)(0x68C231AD)
+I (C:\Users\DELL\AppData\Local\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5E8E3CC2)
+I (../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_rcc_ex.h)(0x68C231AD)
+I (../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_gpio.h)(0x68C231AD)
+I (../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_gpio_ex.h)(0x68C231AD)
+I (../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_dma.h)(0x68C231AD)
+I (../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_cortex.h)(0x68C231AD)
+I (../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_crc.h)(0x68C231AD)
+I (../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_crc_ex.h)(0x68C231AD)
+I (../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_exti.h)(0x68C231AD)
+I (../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_flash.h)(0x68C231AD)
+I (../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_flash_ex.h)(0x68C231AD)
+I (../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_flash_ramfunc.h)(0x68C231AD)
+I (../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_iwdg.h)(0x68C231AD)
+I (../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_pwr.h)(0x68C231AD)
+I (../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_pwr_ex.h)(0x68C231AD)
+I (../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_spi.h)(0x68C231AD)
+I (../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_spi_ex.h)(0x68C231AD)
+I (../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_tim.h)(0x68C231AD)
+I (../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_tim_ex.h)(0x68C231AD)
+I (../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart.h)(0x68C231AD)
+I (../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart_ex.h)(0x68C231AD)
+I (..\Devices\I2C_Device.h)(0x69142ED2)
+I (..\Devices\GPIO_Device.h)(0x65F2BCC2)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x68C22F6F)
+I (../Core/Inc/FreeRTOSConfig.h)(0x69157F92)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x68C22F6F)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x68C22F6F)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h)(0x68C22F6F)
+I (../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h)(0x68C22F6F)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h)(0x68C22F6F)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/task.h)(0x68C22F6F)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/list.h)(0x68C22F6F)
+I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h)(0x68C22F6F)
+I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h)(0x68C22F6F)
+I (C:\Users\DELL\AppData\Local\Keil_v5\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
+I (C:\Users\DELL\AppData\Local\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E8E3CC2)
 F (..\LVGL\lv_conf.h)(0x69042D65)()
 F (..\LVGL\lvgl.h)(0x68D78791)()
 F (..\LVGL\examples\porting\lv_port_disp.c)(0x69017DB1)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I ../Drivers/CMSIS/Include -I ../Devices -I ../LVGL -I ../LVGL/examples/porting -I ../LVGL/src -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Tasks -I ../GUI_APP/custom -I ../GUI_APP/generated -I ../GUI_APP -I ../GUI_APP/generated/guider_customer_fonts -I ../GUI_APP/generated/guider_fonts -I ../GUI_User -I ../LVGL/src/widgets --locale=english --diag_suppress=1211,1-I.\RTE\_6720_ogl-IC:\Users\DELL\AppData\Local\Arm\Packs\ARM\CMSIS\6.1.0\CMSIS\Core\Include-IC:\Users\DELL\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\1.4.0\Device\Include-D__UVISION_VERSION="540" -DSTM32L431xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L431xx -DUDP6720 -DUSE_STDPERIPH_DRIVER-o 6720_ogl\lv_port_disp.o --omf_browse 6720_ogl\lv_port_disp.crf --depend 6720_ogl\lv_port_disp.d)
@@ -11575,7 +11628,7 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h)(0x68C22F6F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/task.h)(0x68C22F6F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/list.h)(0x68C22F6F)
-F (..\Tasks\user_TasksInit.c)(0x69159C08)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I ../Drivers/CMSIS/Include -I ../Devices -I ../LVGL -I ../LVGL/examples/porting -I ../LVGL/src -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Tasks -I ../GUI_APP/custom -I ../GUI_APP/generated -I ../GUI_APP -I ../GUI_APP/generated/guider_customer_fonts -I ../GUI_APP/generated/guider_fonts -I ../GUI_User -I ../LVGL/src/widgets --locale=english --diag_suppress=1211,1-I.\RTE\_6720_ogl-IC:\Users\DELL\AppData\Local\Arm\Packs\ARM\CMSIS\6.1.0\CMSIS\Core\Include-IC:\Users\DELL\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\1.4.0\Device\Include-D__UVISION_VERSION="540" -DSTM32L431xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L431xx -DUDP6720 -DUSE_STDPERIPH_DRIVER-o 6720_ogl\user_tasksinit.o --omf_browse 6720_ogl\user_tasksinit.crf --depend 6720_ogl\user_tasksinit.d)
+F (..\Tasks\user_TasksInit.c)(0x691C1294)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I ../Drivers/CMSIS/Include -I ../Devices -I ../LVGL -I ../LVGL/examples/porting -I ../LVGL/src -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Tasks -I ../GUI_APP/custom -I ../GUI_APP/generated -I ../GUI_APP -I ../GUI_APP/generated/guider_customer_fonts -I ../GUI_APP/generated/guider_fonts -I ../GUI_User -I ../LVGL/src/widgets --locale=english --diag_suppress=1211,1-I.\RTE\_6720_ogl-IC:\Users\DELL\AppData\Local\Arm\Packs\ARM\CMSIS\6.1.0\CMSIS\Core\Include-IC:\Users\DELL\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\1.4.0\Device\Include-D__UVISION_VERSION="540" -DSTM32L431xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L431xx -DUDP6720 -DUSE_STDPERIPH_DRIVER-o 6720_ogl\user_tasksinit.o --omf_browse 6720_ogl\user_tasksinit.crf --depend 6720_ogl\user_tasksinit.d)
 I (..\Tasks\user_TasksInit.h)(0x68D8DEAC)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x68C22F6F)
 I (C:\Users\DELL\AppData\Local\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5E8E3CC2)
@@ -11762,6 +11815,7 @@ I (../GUI_APP/generated/gui_guider.h)(0x69154676)
 I (../Devices/sd6500.h)(0x69142A9A)
 I (../Devices/I2C_Device.h)(0x69142ED2)
 I (..\Tasks\ADC_Task.h)(0x69154DFC)
+I (../Devices/EEPROM_Device.h)(0x691BE231)
 F (..\Tasks\user_HardwareInitTask.c)(0x69158588)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I ../Drivers/CMSIS/Include -I ../Devices -I ../LVGL -I ../LVGL/examples/porting -I ../LVGL/src -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Tasks -I ../GUI_APP/custom -I ../GUI_APP/generated -I ../GUI_APP -I ../GUI_APP/generated/guider_customer_fonts -I ../GUI_APP/generated/guider_fonts -I ../GUI_User -I ../LVGL/src/widgets --locale=english --diag_suppress=1211,1-I.\RTE\_6720_ogl-IC:\Users\DELL\AppData\Local\Arm\Packs\ARM\CMSIS\6.1.0\CMSIS\Core\Include-IC:\Users\DELL\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\1.4.0\Device\Include-D__UVISION_VERSION="540" -DSTM32L431xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L431xx -DUDP6720 -DUSE_STDPERIPH_DRIVER-o 6720_ogl\user_hardwareinittask.o --omf_browse 6720_ogl\user_hardwareinittask.crf --depend 6720_ogl\user_hardwareinittask.d)
 I (../Core/Inc/usart.h)(0x68CBBC9E)
 I (../Core/Inc/main.h)(0x69157C90)
@@ -12138,7 +12192,7 @@ I (../LVGL/examples/porting/lv_port_indev.h)(0x690077BD)
 I (../Devices/Beep_Device.h)(0x690081BA)
 I (../GUI_User/setup.h)(0x68F822E5)
 I (../GUI_User/SET_Page.h)(0x690163EB)
-I (../GUI_User/power_ctrl.h)(0x6916EE1E)
+I (../GUI_User/power_ctrl.h)(0x6916F6FE)
 I (../Core/Inc/tim.h)(0x69157C8F)
 I (..\Tasks\ADC_Task.h)(0x69154DFC)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h)(0x68C22F6F)
@@ -12330,7 +12384,7 @@ I (..\Tasks\Gui_Task.h)(0x6916A88A)
 I (../GUI_APP/generated/gui_guider.h)(0x69154676)
 I (../Devices/sd6500.h)(0x69142A9A)
 I (../Devices/I2C_Device.h)(0x69142ED2)
-I (../GUI_User/power_ctrl.h)(0x6916EE1E)
+I (../GUI_User/power_ctrl.h)(0x6916F6FE)
 I (C:\Users\DELL\AppData\Local\Keil_v5\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
 F (..\GUI_APP\generated\events_init.c)(0x68F72A38)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I ../Drivers/CMSIS/Include -I ../Devices -I ../LVGL -I ../LVGL/examples/porting -I ../LVGL/src -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Tasks -I ../GUI_APP/custom -I ../GUI_APP/generated -I ../GUI_APP -I ../GUI_APP/generated/guider_customer_fonts -I ../GUI_APP/generated/guider_fonts -I ../GUI_User -I ../LVGL/src/widgets --locale=english --diag_suppress=1211,1-I.\RTE\_6720_ogl-IC:\Users\DELL\AppData\Local\Arm\Packs\ARM\CMSIS\6.1.0\CMSIS\Core\Include-IC:\Users\DELL\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\1.4.0\Device\Include-D__UVISION_VERSION="540" -DSTM32L431xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L431xx -DUDP6720 -DUSE_STDPERIPH_DRIVER-o 6720_ogl\events_init.o --omf_browse 6720_ogl\events_init.crf --depend 6720_ogl\events_init.d)
 I (..\GUI_APP\generated\events_init.h)(0x68F72A38)
@@ -15642,7 +15696,7 @@ I (../GUI_APP/generated/events_init.h)(0x68F72A38)
 I (../GUI_APP/generated/widgets_init.h)(0x68F72A38)
 I (../GUI_APP/custom/custom.h)(0x68D9E7BA)
 I (C:\Users\DELL\AppData\Local\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
-I (..\GUI_User\power_ctrl.h)(0x6916EE1E)
+I (..\GUI_User\power_ctrl.h)(0x6916F6FE)
 I (../Core/Inc/tim.h)(0x69157C8F)
 F (..\GUI_User\Setup.c)(0x69003235)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I ../Drivers/CMSIS/Include -I ../Devices -I ../LVGL -I ../LVGL/examples/porting -I ../LVGL/src -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Tasks -I ../GUI_APP/custom -I ../GUI_APP/generated -I ../GUI_APP -I ../GUI_APP/generated/guider_customer_fonts -I ../GUI_APP/generated/guider_fonts -I ../GUI_User -I ../LVGL/src/widgets --locale=english --diag_suppress=1211,1-I.\RTE\_6720_ogl-IC:\Users\DELL\AppData\Local\Arm\Packs\ARM\CMSIS\6.1.0\CMSIS\Core\Include-IC:\Users\DELL\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\1.4.0\Device\Include-D__UVISION_VERSION="540" -DSTM32L431xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L431xx -DUDP6720 -DUSE_STDPERIPH_DRIVER-o 6720_ogl\setup.o --omf_browse 6720_ogl\setup.crf --depend 6720_ogl\setup.d)
 I (..\GUI_User\setup.h)(0x68F822E5)
@@ -15965,7 +16019,7 @@ I (../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_tim_ex.h)(0x68C231AD)
 I (../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart.h)(0x68C231AD)
 I (../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart_ex.h)(0x68C231AD)
 I (C:\Users\DELL\AppData\Local\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
-I (..\GUI_User\power_ctrl.h)(0x6916EE1E)
+I (..\GUI_User\power_ctrl.h)(0x6916F6FE)
 I (../Core/Inc/tim.h)(0x69157C8F)
 I (../Tasks/Gui_Task.h)(0x6916A88A)
 I (../GUI_APP/generated/gui_guider.h)(0x69154676)
@@ -16150,7 +16204,7 @@ I (../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart.h)(0x68C231AD)
 I (../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart_ex.h)(0x68C231AD)
 I (../Devices/st7789.h)(0x690329BD)
 F (..\GUI_User\power_ctrl.c)(0x6916EBE2)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I ../Drivers/CMSIS/Include -I ../Devices -I ../LVGL -I ../LVGL/examples/porting -I ../LVGL/src -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Tasks -I ../GUI_APP/custom -I ../GUI_APP/generated -I ../GUI_APP -I ../GUI_APP/generated/guider_customer_fonts -I ../GUI_APP/generated/guider_fonts -I ../GUI_User -I ../LVGL/src/widgets --locale=english --diag_suppress=1211,1-I.\RTE\_6720_ogl-IC:\Users\DELL\AppData\Local\Arm\Packs\ARM\CMSIS\6.1.0\CMSIS\Core\Include-IC:\Users\DELL\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\1.4.0\Device\Include-D__UVISION_VERSION="540" -DSTM32L431xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L431xx -DUDP6720 -DUSE_STDPERIPH_DRIVER-o 6720_ogl\power_ctrl.o --omf_browse 6720_ogl\power_ctrl.crf --depend 6720_ogl\power_ctrl.d)
-I (..\GUI_User\power_ctrl.h)(0x6916EE1E)
+I (..\GUI_User\power_ctrl.h)(0x6916F6FE)
 I (C:\Users\DELL\AppData\Local\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E8E3CC2)
 I (C:\Users\DELL\AppData\Local\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E8E3CC2)
 I (../Core/Inc/tim.h)(0x69157C8F)

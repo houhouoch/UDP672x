@@ -187,3 +187,4 @@
 6720_ogl\user_tasksinit.o: ../Devices/sd6500.h
 6720_ogl\user_tasksinit.o: ../Devices/I2C_Device.h
 6720_ogl\user_tasksinit.o: ..\Tasks\ADC_Task.h
+6720_ogl\user_tasksinit.o: ../Devices/EEPROM_Device.h

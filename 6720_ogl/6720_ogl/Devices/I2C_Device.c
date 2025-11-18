@@ -3,7 +3,7 @@
 void delay(void)
 {
     uint16_t i;
-    for(i = 0; i < 20; i++);
+    for(i = 0; i < 100; i++);
 }
 
 //I2C开始信号
@@ -41,6 +41,7 @@ void i2c_SendByte(I2C_Dev_Def *i2c_dev, uint8_t byte)
         delay();
         bit >>= 1;
     }
+   
 }
 
 //I2C接收单字节数据

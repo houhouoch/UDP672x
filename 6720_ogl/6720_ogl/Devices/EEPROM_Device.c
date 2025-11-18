@@ -1,29 +1,32 @@
 #include "EEPROM_Device.h"
-#include "Task_Manager.h"
+#include "FreeRTOS.h"  // 必须先包含这个
+#include "task.h"      // 然后再包含 task.h
+#include "cmsis_os.h"   // 如果你在用 CMSIS-RTOS 的 osDelay
+#include <string.h>
+#include <stdbool.h>
 
 uint16_t eeprom_writeCount = 0;
-extern osMutexId_t I2C_MutexHandle;
+
 EEPROM_Dev_Def eeprom =
 {
     .i2c = {
-        .sda = {I2C_SDA_GPIO_Port, I2C_SDA_Pin},
-        .clk = {I2C_SCL_GPIO_Port, I2C_SCL_Pin},
+        .sda = {ROM_SDA_GPIO_Port, ROM_SDA_Pin},
+        .clk = {ROM_SCL_GPIO_Port, ROM_SCL_Pin},
     },
     .addr = 0xA0,
 };
 
-static void __eeprom_delay(uint16_t time)
+
+
+// 可能需要增加更多的延时以确保 I2C 信号稳定
+void __eeprom_delay(uint16_t time)
 {
-    if(xTaskGetSchedulerState() == taskSCHEDULER_RUNNING) {
-        osDelay(time);
-    } else {
-        HAL_Delay(time);
+    for (uint16_t i = 0; i < time; i++) {
+        for (volatile uint16_t j = 0; j < 1000; j++) {  // 增加延时
+            __NOP();  // 只是做一些空操作来延时
+        }
     }
 }
-
-
-#include "i2c.h"
-#define I2C_HW
 
 
 
@@ -39,10 +42,10 @@ uint8_t eeprom_WriteArrary(EEPROM_Dev_Def *eeprom, uint16_t str_addr,
                            uint8_t *pdata, uint16_t write_n)
 {
     eeprom_writeCount += 1;
-    #ifndef I2C_HW
-    OS_LOCK();
+    taskENTER_CRITICAL();
     uint8_t result = EEPROM_NO_ERROR;
     const uint8_t *buffer = pdata;
+
     while(write_n)
     {
         uint8_t  page_write_n = 4;
@@ -50,21 +53,27 @@ uint8_t eeprom_WriteArrary(EEPROM_Dev_Def *eeprom, uint16_t str_addr,
         {
             page_write_n = write_n;
         }
-        //两个地址出现在不同页
+
         if(((str_addr) / 64) != ((str_addr + page_write_n) / 64)) {
             page_write_n = ((str_addr + page_write_n) / 64) * 64 - str_addr;
         }
-RETRY:
-        i2c_Start(&eeprom->i2c);
-        //发送设备地址
-        i2c_SendByte(&eeprom->i2c, eeprom->addr | I2C_WRITE);
-        if(i2c_GetAck(&eeprom->i2c))
+  
+        // 重试机制，使用 while 循环代替 goto
+        bool retry = true;
+        while (retry)
         {
-            result = EEPROM_ADDR_NOACK;
-            i2c_Stop(&eeprom->i2c);
-            goto RETRY;
+            i2c_Start(&eeprom->i2c);
+            i2c_SendByte(&eeprom->i2c, eeprom->addr | I2C_WRITE);
+            if(i2c_GetAck(&eeprom->i2c))
+            {
+                result = EEPROM_ADDR_NOACK;
+                i2c_Stop(&eeprom->i2c);
+                continue;  // 重试
+            }
+            retry = false;
         }
-        //发送页地址
+
+        // 发送页地址
         i2c_SendByte(&eeprom->i2c, str_addr >> 8);
         if(i2c_GetAck(&eeprom->i2c))
         {
@@ -79,7 +88,8 @@ RETRY:
             i2c_Stop(&eeprom->i2c);
             goto ERROR;
         }
-        //发送数据
+
+        // 发送数据
         for(uint16_t i = 0; i < page_write_n; ++i)
         {
             i2c_SendByte(&eeprom->i2c, (*(uint8_t *)(buffer++)));
@@ -89,55 +99,19 @@ RETRY:
                 goto ERROR;
             }
         }
+
         i2c_Stop(&eeprom->i2c);
         str_addr += page_write_n;
         write_n  -= page_write_n;
-        __eeprom_delay(5);
+        __eeprom_delay(10);
     }
+
 ERROR:
-    OS_UNLOCK();
+    taskEXIT_CRITICAL();
     __eeprom_delay(2);
     return result;
-    #else
-    if(eeprom == NULL) { return EEPROM_DATA_NOACK; }
-    //    if(I2C_MutexHandle == NULL) return EEPROM_DATA_NOACK;
-    while(1)
-    {
-        uint8_t writeCount = 0;
-        if(write_n > 8) {
-            writeCount = 8;
-        } else {
-            writeCount = write_n;
-        }
-        //两个地址出现在不同页
-        if((str_addr / 64) != ((str_addr + writeCount) / 64)) {
-            writeCount = ((str_addr + writeCount) / 64) * 64 - str_addr;
-        }
-        write_n -= writeCount;
-        if(xTaskGetSchedulerState() == taskSCHEDULER_RUNNING) { osMutexAcquire(I2C_MutexHandle, osWaitForever); }
-//        HAL_StatusTypeDef state = HAL_I2C_Mem_Write(&hi2c2, eeprom->addr | I2C_WRITE, str_addr, I2C_MEMADD_SIZE_16BIT, pdata, writeCount, 100);
-        
-        while(HAL_I2C_STATE_READY != HAL_I2C_GetState(&hi2c2)) __eeprom_delay(1);
-        HAL_StatusTypeDef state = HAL_I2C_Mem_Write_DMA(&hi2c2, eeprom->addr | I2C_WRITE, str_addr, I2C_MEMADD_SIZE_16BIT, pdata, writeCount);
-        while(HAL_I2C_STATE_READY != HAL_I2C_GetState(&hi2c2)) __eeprom_delay(1);
-        if(xTaskGetSchedulerState() == taskSCHEDULER_RUNNING) { osMutexRelease(I2C_MutexHandle); }
-        if(HAL_OK != state) {
-            eeprom->bit_fault |= 1;
-            return EEPROM_DATA_NOACK;
-        }
-        pdata += writeCount;
-        str_addr += writeCount;
-        //        #if defined(UDP6942B)
-        __eeprom_delay(5);
-        //        #else
-        //        #endif
-        if(write_n == 0) {
-            break;
-        }
-    }
-    return EEPROM_NO_ERROR;
-    #endif
 }
+
 
 /*
  * @brief       uint8_t eeprom_ReadArrary(EEPROM_Dev_Def* eeprom ,uint16_t str_addr,
@@ -150,9 +124,9 @@ ERROR:
 uint8_t eeprom_ReadArrary(EEPROM_Dev_Def *eeprom, uint16_t str_addr,
                           uint8_t *pdata, uint16_t len)
 {
-    #ifndef I2C_HW
-    HAL_Delay(2);
-    OS_LOCK();
+
+
+    taskENTER_CRITICAL();
     uint8_t result = EEPROM_NO_ERROR;
     {
 RETRY:
@@ -202,27 +176,9 @@ RETRY:
     }
 ERROR:
     i2c_Stop(&eeprom->i2c);
-    OS_UNLOCK();
+   taskEXIT_CRITICAL();
     return result;
-    #else
-    if(eeprom == NULL) { return EEPROM_DATA_NOACK; }
-    //    if(I2C_MutexHandle == NULL) return EEPROM_DATA_NOACK;
-    if(xTaskGetSchedulerState() == taskSCHEDULER_RUNNING) { osMutexAcquire(I2C_MutexHandle, osWaitForever); }
-    #if 0
-    HAL_StatusTypeDef state = HAL_I2C_Mem_Read(&hi2c2, eeprom->addr | I2C_READ, str_addr, I2C_MEMADD_SIZE_16BIT, pdata, len, 100);
-    #else
-    while(HAL_I2C_STATE_READY != HAL_I2C_GetState(&hi2c2)) __eeprom_delay(1);
-    HAL_StatusTypeDef state = HAL_I2C_Mem_Read_DMA(&hi2c2, eeprom->addr | I2C_READ, str_addr, I2C_MEMADD_SIZE_16BIT, pdata, len);
-    while(HAL_I2C_STATE_READY != HAL_I2C_GetState(&hi2c2)) __eeprom_delay(1);
-    #endif
-    if(xTaskGetSchedulerState() == taskSCHEDULER_RUNNING) { osMutexRelease(I2C_MutexHandle); }
-    if(HAL_OK == state) {
-        return EEPROM_NO_ERROR;
-    } else {
-        eeprom->bit_fault |= 1;
-        return EEPROM_DATA_NOACK;
-    }
-    #endif
+
 }
 
 
@@ -245,4 +201,54 @@ void eeprom_GetValibRom(EEPROM_Dev_Def *eeprom)
             break;
         }
     }
+}
+
+
+/**
+  * @brief  简单自检：写一段数据到 EEPROM，然后再读出来比对
+  * @retval EEPROM_NO_ERROR     一切正常
+  *         0xF0                写/读过程返回错误（比如 ACK 出错）
+  *         0xF1                数据不一致（写进去和读出来不一样）
+  */
+uint8_t eeprom_SimpleTest(void)
+{
+    uint8_t  txBuf[32];
+    uint8_t  rxBuf[32];
+    uint16_t testAddr = 0x0030;  // 故意选在页边界附近，顺便测试翻页逻辑
+
+    // 准备测试数据：0x10, 0x11, 0x12, ...
+    for(uint16_t i = 0; i < sizeof(txBuf); i++)
+    {
+        txBuf[i] = (uint8_t)(0x10 + i);
+    }
+
+    // 1. 写入一段数据
+    uint8_t ret = eeprom_WriteArrary(&eeprom, testAddr, txBuf, sizeof(txBuf));
+    if(ret != EEPROM_NO_ERROR)
+    {
+        printf("EEPROM  write  error\r\n"); 
+        return 0xF0;   // 写过程就失败了
+    }
+
+    // 给 EEPROM 一点写入时间
+    __eeprom_delay(10);
+
+    // 2. 读出刚才那段地址的数据
+    memset(rxBuf, 0, sizeof(rxBuf));
+    ret = eeprom_ReadArrary(&eeprom, testAddr, rxBuf, sizeof(rxBuf));
+    if(ret != EEPROM_NO_ERROR)
+    {
+       printf("EEPROM  read  error\r\n"); 
+        return 0xF0;   // 读过程失败
+    }
+
+    // 3. 比对写入的数据和读出的数据
+    if(memcmp(txBuf, rxBuf, sizeof(txBuf)) != 0)
+    {
+         printf("EEPROM  read & write error\r\n"); 
+        return 0xF1;   // 数据不一致，说明有问题
+    }
+
+    // 一切正常
+    return EEPROM_NO_ERROR;
 }

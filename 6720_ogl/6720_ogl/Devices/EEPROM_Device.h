@@ -3,13 +3,14 @@
 
 #include "main.h"
 #include "I2C_Device.h"
-#include "Task_Manager.h"
 
 
 
 #define CAL_BASE_ADDR   (0*1024UL)
 #define CAL_VOL_ADDR    (CAL_BASE_ADDR+0)
 #define CAL_AMP_ADDR    (CAL_BASE_ADDR+512UL)
+
+uint8_t eeprom_SimpleTest(void);
 
 
 typedef struct

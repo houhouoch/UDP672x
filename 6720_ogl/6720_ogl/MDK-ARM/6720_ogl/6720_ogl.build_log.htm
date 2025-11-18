@@ -22,23 +22,23 @@ Dialog DLL:      TCM.DLL V1.56.4.0
  
 <h2>Project:</h2>
 D:\6720_ogl_second_11.13 ADC回读显示完成(中文切换+设置存储+其他)\6720_ogl\6720_ogl\MDK-ARM\6720_ogl.uvprojx
-Project File Date:  11/13/2025
+Project File Date:  11/18/2025
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Users\DELL\AppData\Local\Keil_v5\ARM\ARMCC\Bin'
 Build target '6720_ogl'
-compiling Gui_Task.c...
-..\Tasks\Gui_Task.c(24): warning:  #177-D: variable "real_value_ms"  was declared but never referenced
-  static uint32_t real_value_ms;
-..\Tasks\Gui_Task.c: 1 warning, 0 errors
-compiling ADC_Task.c...
-compiling HomePage.c...
-compiling power_ctrl.c...
-compiling numedit.c...
+compiling EEPROM_Device.c...
+..\Devices\EEPROM_Device.c(229): warning:  #223-D: function "printf" declared implicitly
+          printf("EEPROM  write  error\r\n"); 
+..\Devices\EEPROM_Device.c(241): warning:  #223-D: function "printf" declared implicitly
+         printf("EEPROM  read  error\r\n"); 
+..\Devices\EEPROM_Device.c(248): warning:  #223-D: function "printf" declared implicitly
+           printf("EEPROM  read & write error\r\n"); 
+..\Devices\EEPROM_Device.c: 3 warnings, 0 errors
 linking...
-Program Size: Code=201128 RO-data=41356 RW-data=1060 ZI-data=57248  
+Program Size: Code=202268 RO-data=41400 RW-data=1088 ZI-data=57252  
 FromELF: creating hex file...
-"6720_ogl\6720_ogl.axf" - 0 Error(s), 1 Warning(s).
+"6720_ogl\6720_ogl.axf" - 0 Error(s), 3 Warning(s).
 
 <h2>Software Packages used:</h2>
 

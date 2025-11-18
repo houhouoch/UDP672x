@@ -43,6 +43,7 @@
 "6720_ogl\st7789.o"
 "6720_ogl\i2c_device.o"
 "6720_ogl\sd6500.o"
+"6720_ogl\eeprom_device.o"
 "6720_ogl\lv_port_disp.o"
 "6720_ogl\lv_port_indev.o"
 "6720_ogl\lv_disp.o"
