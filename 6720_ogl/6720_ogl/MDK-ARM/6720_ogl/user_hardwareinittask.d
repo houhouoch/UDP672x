@@ -193,3 +193,5 @@
 6720_ogl\user_hardwareinittask.o: ../LVGL/examples/porting/lv_port_disp.h
 6720_ogl\user_hardwareinittask.o: ../LVGL/examples/porting/lv_port_indev.h
 6720_ogl\user_hardwareinittask.o: ../GUI_User/gui_custom.h
+6720_ogl\user_hardwareinittask.o: ..\Tasks\SystemSetting.h
+6720_ogl\user_hardwareinittask.o: ../Devices/EEPROM_Device.h

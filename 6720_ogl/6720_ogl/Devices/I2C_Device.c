@@ -3,7 +3,7 @@
 void delay(void)
 {
     uint16_t i;
-    for(i = 0; i < 100; i++);
+    for(i = 0; i < 20; i++);
 }
 
 //I2C¿ªÊ¼ÐÅºÅ

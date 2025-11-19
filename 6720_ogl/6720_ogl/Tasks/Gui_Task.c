@@ -13,6 +13,7 @@
 #include "main.h"
 #include "power_ctrl.h"
 #include "ADC_Task.h"
+#include "SystemSetting.h"
 extern lv_ui guider_ui;  /* 你的全局 ui */
 
 /* ========= 工具：停止冒泡并返回 true ========= */
@@ -23,7 +24,7 @@ extern inline bool stop_and_true(lv_event_t *e){
 
 static uint32_t real_value_ms;
 static inline void ui_click_beep(uint32_t key){ 
-    if(!s2_beep_state) return;      // 用户关闭蜂鸣器
+    if(!current_settings.beep_state) return;      // 用户关闭蜂鸣器
     if(s_click_mute)   return;      // 锁屏期间静音
     switch(key){
     case LV_KEY_ENTER:

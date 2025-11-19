@@ -39,12 +39,12 @@ const osThreadAttr_t RealDataTick_attributes = {
   .priority = (osPriority_t) osPriorityNormal,
 };
 
-osThreadId_t EEPROMHandle;
-const osThreadAttr_t REEPROM_attributes = {
-  .name = "EEPROM",
-  .stack_size = 128 * 10,
-  .priority = (osPriority_t) osPriorityNormal,
-};
+//osThreadId_t EEPROMHandle;
+//const osThreadAttr_t REEPROM_attributes = {
+//  .name = "EEPROM",
+//  .stack_size = 128 * 10,
+//  .priority = (osPriority_t) osPriorityNormal,
+//};
 
 void StartEepromTestTask(void *argument);
 /**
@@ -57,7 +57,7 @@ void User_Tasks_Init(void)
      HardwareInitTaskHandle  = osThreadNew(HardwareInitTask, NULL, &HardwareInitTask_attributes);//初始化硬件
      GUIHandle  = osThreadNew(GuiTask, NULL, &GUI_attributes);//LVGL的心跳循环 
      RealDataTickHandle = osThreadNew(SD6500_Task, NULL, &RealDataTick_attributes);//LVGL的心跳循环 
-     EEPROMHandle = osThreadNew(StartEepromTestTask, NULL, &REEPROM_attributes);//LVGL的心跳循环    
+    // EEPROMHandle = osThreadNew(StartEepromTestTask, NULL, &REEPROM_attributes);//LVGL的心跳循环    
 }
 /* Private function prototypes -----------------------------------------------*/
 /**
@@ -73,22 +73,22 @@ void TaskTickHook(void)
 }
 
 
-void StartEepromTestTask(void *argument)
-{
-    for(;;)
-    {
-        uint8_t res = eeprom_SimpleTest();
+//void StartEepromTestTask(void *argument)
+//{
+//    for(;;)
+//    {
+//        uint8_t res = eeprom_SimpleTest();
 
-        if(res == EEPROM_NO_ERROR)
-        {
-         printf("EEPROM SUCCESSFUL\r\n");   // 比如打印一条 log 或闪烁 LED 表示 OK
-        }
-        else
-        {
-         printf("EEPROM error\r\n");             // 打印错误码，或者进错误处理
-        }
+//        if(res == EEPROM_NO_ERROR)
+//        {
+//         printf("EEPROM SUCCESSFUL\r\n");   // 比如打印一条 log 或闪烁 LED 表示 OK
+//        }
+//        else
+//        {
+//         printf("EEPROM error\r\n");             // 打印错误码，或者进错误处理
+//        }
 
-        vTaskDelay(pdMS_TO_TICKS(1000));
-    }
-}
+//        vTaskDelay(pdMS_TO_TICKS(1000));
+//    }
+//}
 

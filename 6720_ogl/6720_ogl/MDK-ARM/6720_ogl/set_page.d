@@ -141,8 +141,6 @@
 6720_ogl\set_page.o: ../LVGL/src/extra/widgets/span/lv_span.h
 6720_ogl\set_page.o: ../GUI_APP/generated/gui_guider.h
 6720_ogl\set_page.o: ../Tasks/Gui_Task.h
-6720_ogl\set_page.o: ../LVGL/examples/porting/lv_port_disp.h
-6720_ogl\set_page.o: ../Devices/Beep_Device.h
 6720_ogl\set_page.o: ../Core/Inc/main.h
 6720_ogl\set_page.o: ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal.h
 6720_ogl\set_page.o: ../Core/Inc/stm32l4xx_hal_conf.h
@@ -178,4 +176,10 @@
 6720_ogl\set_page.o: ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_tim_ex.h
 6720_ogl\set_page.o: ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart.h
 6720_ogl\set_page.o: ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart_ex.h
+6720_ogl\set_page.o: ../LVGL/examples/porting/lv_port_disp.h
+6720_ogl\set_page.o: ../Devices/Beep_Device.h
 6720_ogl\set_page.o: ../Devices/st7789.h
+6720_ogl\set_page.o: ../Tasks/SystemSetting.h
+6720_ogl\set_page.o: ../Devices/EEPROM_Device.h
+6720_ogl\set_page.o: ../Devices/I2C_Device.h
+6720_ogl\set_page.o: ../Devices/GPIO_Device.h

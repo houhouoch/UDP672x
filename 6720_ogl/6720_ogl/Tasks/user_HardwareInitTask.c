@@ -23,6 +23,8 @@ lv_ui guider_ui;
 
 #include "gui_custom.h"
 // APP SYS setting
+#include "SystemSetting.h"
+
 void APP_LVGL(void);
 
 /* Private typedef -----------------------------------------------------------*/
@@ -40,10 +42,14 @@ void HardwareInitTask(void *argument)
 {         
 	while(1)
 	{
-    vTaskSuspendAll();       
+    vTaskSuspendAll();  
+    
     beep_init();   
-    beep_Set_Enable(1);
-    printf("test on\r\n");     
+   beep_Set_Enable(1);
+    printf("test on\r\n"); 
+    
+    system_init();    
+    
     //lcd_start
     ST7789_Init();    
     //LVGL start

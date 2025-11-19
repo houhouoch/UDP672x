@@ -4,6 +4,7 @@
 #include "Beep_Device.h"
 #include "Gui_Task.h"
 #include "st7789.h"
+#include "SystemSetting.h"  // 引入头文件
 /* —— 内部状态 —— */
 static lv_obj_t *s2_btns[7];
 static uint8_t   s2_cnt = 0;
@@ -47,17 +48,52 @@ static inline void s2_show_only(lv_obj_t *target){
         }
     }
 }
+//***********************封装函数*************************************
+//事件回调和样式设置函数
+void add_event_and_style(lv_obj_t *obj, lv_event_cb_t event_cb, lv_group_t *group, bool *in_group_flag) {
+    if (!obj || !event_cb) return;
 
+    // 添加事件回调
+    lv_obj_add_event_cb(obj, event_cb, LV_EVENT_KEY, NULL);
+    // 添加样式
+    lv_obj_add_style(obj, &s2_focus_style, LV_PART_MAIN | LV_STATE_FOCUSED);
+
+    // 将控件添加到 group 中（如果还没有添加）
+    if (!(*in_group_flag)) {
+        lv_group_add_obj(group, obj);
+        *in_group_flag = true;
+    }
+}
+
+// 退出编辑模式
+static void exit_edit_mode(lv_group_t *g, lv_obj_t *label, bool *in_group_flag, lv_obj_t *focus_obj) {
+    if (g) lv_group_set_editing(g, false);  // 退出编辑态
+
+    // 如果有标签对象，移出 group
+    if (label && *in_group_flag) {
+        lv_group_remove_obj(label);
+        *in_group_flag = false;
+    }
+
+    // 焦点回到指定的对象
+    if (focus_obj) {
+        lv_group_focus_obj(focus_obj);
+    }
+
+    lv_event_stop_bubbling(NULL);  // 停止事件冒泡
+}
+
+
+//***********************封装函数 END*************************************
 
 //1.蜂蜜器
 /* —— Beep 值编辑相关 —— */
-bool   s2_beep_state = true; // true="打开", false="关闭"
 static bool      s2_beep_cb_added = false;
 static bool s2_beep_in_group = false;   // BeepVal 是否已加入 group
-static lv_obj_t *s2_beep_val = NULL;   
+static lv_obj_t *s2_beep_val = NULL;   //蜂鸣器标签
 
 static inline void ui_click_beep(uint32_t key){ 
-    if(!s2_beep_state) return;      // 用户关闭蜂鸣器
+    if(!current_settings.beep_state) return;      // 用户关闭蜂鸣器
     switch(key){
     case LV_KEY_ENTER:
     case LV_KEY_ENCODER:
@@ -88,18 +124,9 @@ static inline void ui_click_beep(uint32_t key){
     }
 }
 
-/* 刷新标签文本 */
-static void s2_beep_refresh(void){
-    if (!s2_beep_val) return;
-  //鎵撳紑:打开   鍏抽棴：关闭
-  lv_label_set_text(s2_beep_val, s2_beep_state ? "鎵撳紑" : "鍏抽棴");
-  
-      /* 新增：联动硬件开关 */
-//    beep_Set_Enable(s2_beep_state ? 1 : 0);
-//   
-//  if(!s2_beep_state) BEEP_OFF();   // 关的时候立刻静音
-  
-}
+
+
+
 
 static inline void s2_set_topbar_beep_icon(bool on)
 {
@@ -115,49 +142,41 @@ static inline void s2_set_topbar_beep_icon(bool on)
 }
 
 
+/* 刷新标签文本 */
+static void s2_beep_refresh(void){
+if (!s2_beep_val) return;
+  //鎵撳紑:打开   鍏抽棴：关闭
+  lv_label_set_text(s2_beep_val, current_settings.beep_state ? "鎵撳紑" : "鍏抽棴");  
+  printf("Beeps state updated: %d\n",  current_settings.beep_state);  // 打印蜂鸣器状态更新
+  s2_set_topbar_beep_icon( current_settings.beep_state); // 同步屏幕1顶栏图标
+}
+
+
 /* 在 BeepVal 上的按键处理：UP/DOWN 切换文字；ENTER 退出编辑；MENU 回首页 */
 static void s2_beep_edit_key_cb(lv_event_t *e){
+  
     if (lv_event_get_code(e) != LV_EVENT_KEY) return;
-    uint32_t   key = lv_event_get_key(e);
+  
+    uint32_t   key = lv_event_get_key(e);  
     lv_obj_t  *obj = lv_event_get_target(e);
     lv_group_t *g  = lv_obj_get_group(obj);
 
-    /* ★ 有些端口把旋钮按下映射成 LV_KEY_ENCODER，不是 LV_KEY_ENTER */
-    if (key == LV_KEY_ENTER || key == LV_KEY_ENCODER){
-        if (g) lv_group_set_editing(g, false);  // 退出编辑态
-        /* 退出编辑后，焦点回“蜂鸣器”按钮 */
-        if (g) lv_group_focus_obj(s2_btns[0]);
-
-        /* ★ 可选但推荐：把标签移出 group，避免之后导航再跳到它 */
-        if (s2_beep_in_group) {
-            lv_group_remove_obj(s2_beep_val);
-            s2_beep_in_group = false;
-        }
-
-        lv_event_stop_bubbling(e);
+    // 如果按下回车或编码器，退出编辑模式
+    if (key == LV_KEY_ENTER || key == LV_KEY_ENCODER) {
+        exit_edit_mode(g, s2_beep_val, &s2_beep_in_group, s2_btns[0]);
         return;
     }
-
-    if (key == LV_KEY_MENU){
-        if (g) lv_group_set_editing(g, false);
-        if (s2_beep_in_group) {
-            lv_group_remove_obj(s2_beep_val);
-            s2_beep_in_group = false;
-        }
+    // 如果按下菜单键，返回首页
+    if (key == LV_KEY_MENU) {
+        exit_edit_mode(g, s2_beep_val, &s2_beep_in_group, NULL);
         show_page(PAGE_HOME);
-        lv_event_stop_bubbling(e);
         return;
     }
 
-    if (key == LV_KEY_UP || key == LV_KEY_DOWN
-     || key == LV_KEY_NEXT || key == LV_KEY_PREV){
-        s2_beep_state = !s2_beep_state;  // 每转一次就翻转
-        s2_beep_refresh();
-       
-        beep_Set_Enable(s2_beep_state ? 1 : 0); // 驱动底层开关
-        if(!s2_beep_state) BEEP_OFF();          // 关时立即拉低蜂鸣器
-
-        s2_set_topbar_beep_icon(s2_beep_state); // 同步屏幕1顶栏图标
+    if (key == LV_KEY_UP || key == LV_KEY_DOWN){
+         current_settings.beep_state = ! current_settings.beep_state;  // 每转一次就翻转
+        save_settings_to_eeprom(&current_settings); // 保存到 EEPROM
+        s2_beep_refresh();//刷新beep
         lv_event_stop_bubbling(e);
         return;
     }
@@ -165,24 +184,19 @@ static void s2_beep_edit_key_cb(lv_event_t *e){
 
 
 /* 进入 BeepVal 的编辑模式 */
-static void s2_enter_beep_edit(lv_group_t *g){
+/* 进入 BeepVal 的编辑模式 */
+static void s2_enter_beep_edit(lv_group_t *g) {
     if (!s2_beep_val || !g) return;
-    if (!s2_beep_cb_added){
-        lv_obj_add_event_cb(s2_beep_val, s2_beep_edit_key_cb, LV_EVENT_KEY, NULL);
-        lv_obj_add_style(s2_beep_val, &s2_focus_style, LV_PART_MAIN | LV_STATE_FOCUSED);
-        s2_beep_cb_added = true;
-    }
-    s2_beep_refresh();  // 进入时先把文字刷新到当前状态
 
-    /* ★ 关键：确保标签在 group 里，否则无法聚焦 */
-    if (!s2_beep_in_group) {
-        lv_group_add_obj(g, s2_beep_val);
-        s2_beep_in_group = true;
-    }
+    // 直接为控件添加事件回调和样式，不再检查是否已添加
+    add_event_and_style(s2_beep_val, s2_beep_edit_key_cb, g, &s2_beep_in_group);
+
+    s2_beep_refresh();  // 进入时先把文字刷新到当前状态
 
     lv_group_focus_obj(s2_beep_val);  // 焦点给标签
     lv_group_set_editing(g, true);    // 切到“编辑态”：编码器键交给标签
 }
+
 
 
 //2.背光亮度
@@ -538,11 +552,6 @@ static void s2_btn_key_cb(lv_event_t *e){
         return;    // 已经在 handle_OUT_ONOFF_hotkey 里 stop 事件了
     }
   
-  
-  
-  
-
-
     if (key == LV_KEY_MENU){
         show_page(PAGE_HOME);
         lv_event_stop_bubbling(e);
@@ -619,6 +628,11 @@ void SET_Page_init(lv_ui *ui)
     s2_btns[s2_cnt++] = ui->screen_2_btn_IoIfo;
     s2_btns[s2_cnt++] = ui->screen_2_btn_About;
 
+      printf("UI Buttons Initialized\n");
+
+
+  
+  
     /* 聚焦样式初始化一次 */
     s2_init_focus_style_once();
 
@@ -664,6 +678,9 @@ void SET_Page_init(lv_ui *ui)
     /* 记录 About 容器（默认隐藏） */
     s2_about_cont = ui->screen_2_AboutIfoContainer;    // 
     if (s2_about_cont) lv_obj_add_flag(s2_about_cont, LV_OBJ_FLAG_HIDDEN);
+    
+    
+    
 }
 
 /* 2) 进入 screen_2：加入组 & 聚焦第一个 */

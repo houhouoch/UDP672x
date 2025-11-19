@@ -139,11 +139,6 @@
 6720_ogl\gui_task.o: ../LVGL/src/extra/widgets/imgbtn/lv_imgbtn.h
 6720_ogl\gui_task.o: ../LVGL/src/extra/widgets/span/lv_span.h
 6720_ogl\gui_task.o: ..\Tasks\Gui_Task.h
-6720_ogl\gui_task.o: ../GUI_APP/generated/gui_guider.h
-6720_ogl\gui_task.o: ../GUI_APP/generated/events_init.h
-6720_ogl\gui_task.o: ../GUI_APP/generated/widgets_init.h
-6720_ogl\gui_task.o: ../GUI_APP/custom/custom.h
-6720_ogl\gui_task.o: ../GUI_User/HomePage.h
 6720_ogl\gui_task.o: ../Core/Inc/main.h
 6720_ogl\gui_task.o: ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal.h
 6720_ogl\gui_task.o: ../Core/Inc/stm32l4xx_hal_conf.h
@@ -179,6 +174,11 @@
 6720_ogl\gui_task.o: ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_tim_ex.h
 6720_ogl\gui_task.o: ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart.h
 6720_ogl\gui_task.o: ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart_ex.h
+6720_ogl\gui_task.o: ../GUI_APP/generated/gui_guider.h
+6720_ogl\gui_task.o: ../GUI_APP/generated/events_init.h
+6720_ogl\gui_task.o: ../GUI_APP/generated/widgets_init.h
+6720_ogl\gui_task.o: ../GUI_APP/custom/custom.h
+6720_ogl\gui_task.o: ../GUI_User/HomePage.h
 6720_ogl\gui_task.o: ../GUI_User/numedit.h
 6720_ogl\gui_task.o: ../LVGL/examples/porting/lv_port_indev.h
 6720_ogl\gui_task.o: ../Devices/Beep_Device.h
@@ -191,3 +191,7 @@
 6720_ogl\gui_task.o: ..\Tasks\ADC_Task.h
 6720_ogl\gui_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h
 6720_ogl\gui_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h
+6720_ogl\gui_task.o: ..\Tasks\SystemSetting.h
+6720_ogl\gui_task.o: ../Devices/EEPROM_Device.h
+6720_ogl\gui_task.o: ../Devices/I2C_Device.h
+6720_ogl\gui_task.o: ../Devices/GPIO_Device.h

@@ -186,6 +186,7 @@
 "6720_ogl\user_hardwareinittask.o"
 "6720_ogl\gui_task.o"
 "6720_ogl\adc_task.o"
+"6720_ogl\systemsetting.o"
 "6720_ogl\events_init.o"
 "6720_ogl\gui_guider.o"
 "6720_ogl\setup_scr_screen.o"

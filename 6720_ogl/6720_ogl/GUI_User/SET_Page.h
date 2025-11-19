@@ -16,7 +16,5 @@ void SET_Page_leave(lv_group_t *group, lv_obj_t *fallback_focus);
 /* 是否处于 screen_2 导航模式（用于避免你在按键尾部“抢回焦点”） */
 bool SET_Page_is_active(void);
 
-extern bool s2_beep_state;  
-
 
 #endif /* SET_PAGE_H */

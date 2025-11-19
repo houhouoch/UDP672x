@@ -1,6 +1,6 @@
 #ifndef _GUI_TASK_H
 #define _GUI_TASK_H
-
+#include "main.h"
 #include "lvgl.h"
 #include "gui_guider.h"
 

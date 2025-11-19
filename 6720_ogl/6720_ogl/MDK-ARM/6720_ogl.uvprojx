@@ -2473,6 +2473,11 @@
               <FileType>1</FileType>
               <FilePath>..\Tasks\ADC_Task.c</FilePath>
             </File>
+            <File>
+              <FileName>SystemSetting.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Tasks\SystemSetting.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
