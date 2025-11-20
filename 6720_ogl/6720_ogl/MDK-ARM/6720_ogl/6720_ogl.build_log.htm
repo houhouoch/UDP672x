@@ -1,0 +1,90 @@
+<html>
+<body>
+<pre>
+<h1>礦ision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: μVision V5.40.0.0
+Copyright (C) 2024 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: 123 DELL, 123, LIC=ATTQ1-CK8RE-GKRBG-V6IUS-F78GV-H8R1Y
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Plus  Version: 5.40.0.3
+Toolchain Path:  C:\Users\DELL\AppData\Local\Keil_v5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 update 7 (build 960)
+Assembler:       Armasm.exe V5.06 update 7 (build 960)
+Linker/Locator:  ArmLink.exe V5.06 update 7 (build 960)
+Library Manager: ArmAr.exe V5.06 update 7 (build 960)
+Hex Converter:   FromElf.exe V5.06 update 7 (build 960)
+CPU DLL:         SARMCM3.DLL V5.40.0.3
+Dialog DLL:      DCM.DLL V1.17.5.0
+Target DLL:      CMSIS_AGDI.dll V1.33.18.0
+Dialog DLL:      TCM.DLL V1.56.4.0
+ 
+<h2>Project:</h2>
+D:\6720_ogl_second_11.20完成回读\6720_ogl_second_11.20完成回读\6720_ogl\6720_ogl\MDK-ARM\6720_ogl.uvprojx
+Project File Date:  11/18/2025
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Users\DELL\AppData\Local\Keil_v5\ARM\ARMCC\Bin'
+Build target '6720_ogl'
+compiling SET_Page.c...
+..\GUI_User\SET_Page.c(152): warning:  #223-D: function "printf" declared implicitly
+    printf("Beeps state updated: %d\n",  current_settings.beep_state);  // ??????????????????
+..\GUI_User\SET_Page.c(178): warning:  #223-D: function "save_settings_to_eeprom" declared implicitly
+          save_settings_to_eeprom(&current_settings); // ?????????? EEPROM
+..\GUI_User\SET_Page.c(217): warning:  #223-D: function "printf" declared implicitly
+      printf("Backlight brightness updated: %d%%\n", current_settings.backlight_brightness);  // ????????
+..\GUI_User\SET_Page.c(261): warning:  #223-D: function "save_settings_to_eeprom" declared implicitly
+          save_settings_to_eeprom(&current_settings);  // ?????????? EEPROM
+..\GUI_User\SET_Page.c(294): warning:  #186-D: pointless comparison of unsigned integer with zero
+      if (current_settings.storage_group < s2_mem_min) current_settings.storage_group = s2_mem_min;
+..\GUI_User\SET_Page.c(300): warning:  #223-D: function "printf" declared implicitly
+      printf("Storage group updated: %d\n", current_settings.storage_group);  // ????????????
+..\GUI_User\SET_Page.c(343): warning:  #223-D: function "save_settings_to_eeprom" declared implicitly
+          save_settings_to_eeprom(&current_settings);  // ?????????? EEPROM
+..\GUI_User\SET_Page.c(392): warning:  #223-D: function "printf" declared implicitly
+      printf("output_status updated: %d\n", current_settings.output_status);  // ????????????
+..\GUI_User\SET_Page.c(406): warning:  #223-D: function "power_set_output" declared implicitly
+      power_set_output(OUT_ONOFF_led_on);
+..\GUI_User\SET_Page.c(412): warning:  #223-D: function "power_apply_voltage_from_label" declared implicitly
+          power_apply_voltage_from_label();      
+..\GUI_User\SET_Page.c(454): warning:  #223-D: function "save_settings_to_eeprom" declared implicitly
+          save_settings_to_eeprom(&current_settings);  // ?????????? EEPROM
+..\GUI_User\SET_Page.c: 11 warnings, 0 errors
+compiling Gui_Task.c...
+..\Tasks\Gui_Task.c(129): warning:  #223-D: function "save_settings_to_eeprom" declared implicitly
+      save_settings_to_eeprom(&current_settings);
+..\Tasks\Gui_Task.c(25): warning:  #177-D: variable "real_value_ms"  was declared but never referenced
+  static uint32_t real_value_ms;
+..\Tasks\Gui_Task.c: 2 warnings, 0 errors
+linking...
+Program Size: Code=202852 RO-data=41356 RW-data=1088 ZI-data=57252  
+FromELF: creating hex file...
+"6720_ogl\6720_ogl.axf" - 0 Error(s), 13 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                https://www.keil.com/pack/ARM.CMSIS.6.1.0.pack
+                ARM::CMSIS@6.1.0
+                CMSIS (Common Microcontroller Software Interface Standard)
+   * Component: CORE Version: 6.1.0
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.STM32L4xx_DFP.1.4.0.pack
+                Keil::STM32L4xx_DFP@1.4.0
+                STMicroelectronics STM32L4 Series Device Support, Drivers and Examples
+
+<h2>Collection of Component include folders:</h2>
+  ./RTE/_6720_ogl
+  C:/Users/DELL/AppData/Local/Arm/Packs/ARM/CMSIS/6.1.0/CMSIS/Core/Include
+  C:/Users/DELL/AppData/Local/Arm/Packs/Keil/STM32L4xx_DFP/1.4.0/Device/Include
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE@6.1.0
+      Include file:  CMSIS/Core/Include/tz_context.h
+Build Time Elapsed:  00:00:04
+</pre>
+</body>
+</html>

@@ -1,0 +1,17 @@
+6720_ogl\lv_fragment.o: ..\LVGL\src\extra\others\fragment\lv_fragment.c
+6720_ogl\lv_fragment.o: ..\LVGL\src\extra\others\fragment\lv_fragment.h
+6720_ogl\lv_fragment.o: ..\LVGL\src\extra\others\fragment\../../../lv_conf_internal.h
+6720_ogl\lv_fragment.o: C:\Users\DELL\AppData\Local\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+6720_ogl\lv_fragment.o: ..\LVGL\src\extra\others\fragment\../../../lv_conf_kconfig.h
+6720_ogl\lv_fragment.o: ../LVGL/examples/porting/../../lv_conf.h
+6720_ogl\lv_fragment.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
+6720_ogl\lv_fragment.o: C:\Users\DELL\AppData\Local\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+6720_ogl\lv_fragment.o: ../Core/Inc/FreeRTOSConfig.h
+6720_ogl\lv_fragment.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
+6720_ogl\lv_fragment.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
+6720_ogl\lv_fragment.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
+6720_ogl\lv_fragment.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
+6720_ogl\lv_fragment.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
+6720_ogl\lv_fragment.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
+6720_ogl\lv_fragment.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
+6720_ogl\lv_fragment.o: C:\Users\DELL\AppData\Local\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
