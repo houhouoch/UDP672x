@@ -60,7 +60,11 @@ static inline void ui_click_beep(uint32_t key){
 
 /* ===== OUTPUT 键逻辑：只切换输出，设定值不变 ===== */
  bool OUT_ONOFF_led_on = false;
+<<<<<<< HEAD
 void ui_onoff_update(bool on)
+=======
+static inline void ui_onoff_update(bool on)
+>>>>>>> 845630e2992c23af1e54a4291c08ed1ef2dab183
 {
     lv_label_set_text(guider_ui.screen_label_ON_OFF, on ? "ON" : "OFF");
     lv_obj_set_style_text_color(
@@ -106,6 +110,15 @@ void ui_onoff_update(bool on)
             
 }
 
+<<<<<<< HEAD
+=======
+
+
+
+
+
+
+>>>>>>> 845630e2992c23af1e54a4291c08ed1ef2dab183
 extern bool handle_OUT_ONOFF_hotkey(uint32_t key, lv_event_t *e)
 {
     //只在homepage处调用 其余界面不调用
@@ -115,6 +128,7 @@ extern bool handle_OUT_ONOFF_hotkey(uint32_t key, lv_event_t *e)
     // 同步电源控制模块的“输出状态”
     power_set_output(OUT_ONOFF_led_on);
 
+<<<<<<< HEAD
   
     // Update output hardware state based on output status
     if (OUT_ONOFF_led_on) {
@@ -131,6 +145,8 @@ extern bool handle_OUT_ONOFF_hotkey(uint32_t key, lv_event_t *e)
     // Apply output state to hardware and update the UI
     power_set_output(OUT_ONOFF_led_on);
   
+=======
+>>>>>>> 845630e2992c23af1e54a4291c08ed1ef2dab183
     if(OUT_ONOFF_led_on){
         HAL_GPIO_WritePin(OUT_ONOFF_GPIO_Port, OUT_ONOFF_Pin, GPIO_PIN_SET);
         HAL_GPIO_WritePin(LED_ONOFF_GPIO_Port, LED_ONOFF_Pin, GPIO_PIN_RESET);     

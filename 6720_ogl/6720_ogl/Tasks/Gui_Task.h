@@ -22,7 +22,10 @@ typedef struct {
 extern bool handle_OUT_ONOFF_hotkey(uint32_t key, lv_event_t *e);
 extern ui_nav_t g_nav;
 extern bool OUT_ONOFF_led_on ;
+<<<<<<< HEAD
 extern void ui_onoff_update(bool on);
+=======
+>>>>>>> 845630e2992c23af1e54a4291c08ed1ef2dab183
 /* API */
 void ui_build(void);                 // 创建 UI
 void pages_build(lv_ui *ui);         // 创建两页并挂载

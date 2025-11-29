@@ -8,7 +8,10 @@ typedef struct {
     uint8_t backlight_brightness; // 背光亮度（0-100）
     uint8_t storage_group;      // 存储组（0-200）
     uint8_t output_status;      // 输出状态
+<<<<<<< HEAD
     uint8_t output_hardware_state;
+=======
+>>>>>>> 845630e2992c23af1e54a4291c08ed1ef2dab183
 } SystemSettings;
 
 // 声明外部变量

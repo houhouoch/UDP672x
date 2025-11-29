@@ -21,13 +21,18 @@ Target DLL:      CMSIS_AGDI.dll V1.33.18.0
 Dialog DLL:      TCM.DLL V1.56.4.0
  
 <h2>Project:</h2>
+<<<<<<< HEAD
 D:\6720_ogl_second_11.20完成回读\6720_ogl_second_11.20完成回读\6720_ogl\6720_ogl\MDK-ARM\6720_ogl.uvprojx
+=======
+D:\6720_ogl_second_11.13 ADC回读显示完成(中文切换+设置存储+其他)\6720_ogl\6720_ogl\MDK-ARM\6720_ogl.uvprojx
+>>>>>>> 845630e2992c23af1e54a4291c08ed1ef2dab183
 Project File Date:  11/18/2025
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Users\DELL\AppData\Local\Keil_v5\ARM\ARMCC\Bin'
 Build target '6720_ogl'
 compiling SET_Page.c...
+<<<<<<< HEAD
 ..\GUI_User\SET_Page.c(152): warning:  #223-D: function "printf" declared implicitly
     printf("Beeps state updated: %d\n",  current_settings.beep_state);  // ??????????????????
 ..\GUI_User\SET_Page.c(178): warning:  #223-D: function "save_settings_to_eeprom" declared implicitly
@@ -61,6 +66,21 @@ linking...
 Program Size: Code=202852 RO-data=41356 RW-data=1088 ZI-data=57252  
 FromELF: creating hex file...
 "6720_ogl\6720_ogl.axf" - 0 Error(s), 13 Warning(s).
+=======
+..\GUI_User\SET_Page.c(150): warning:  #223-D: function "printf" declared implicitly
+    printf("Beeps state updated: %d\n",  current_settings.beep_state);  // ??????????????????
+..\GUI_User\SET_Page.c(178): warning:  #223-D: function "save_settings_to_eeprom" declared implicitly
+          save_settings_to_eeprom(&current_settings); // ?????? EEPROM
+..\GUI_User\SET_Page.c(631): warning:  #223-D: function "printf" declared implicitly
+        printf("UI Buttons Initialized\n");
+..\GUI_User\SET_Page.c(91): warning:  #177-D: variable "s2_beep_cb_added"  was declared but never referenced
+  static bool      s2_beep_cb_added = false;
+..\GUI_User\SET_Page.c: 4 warnings, 0 errors
+linking...
+Program Size: Code=202764 RO-data=41356 RW-data=1088 ZI-data=57252  
+FromELF: creating hex file...
+"6720_ogl\6720_ogl.axf" - 0 Error(s), 4 Warning(s).
+>>>>>>> 845630e2992c23af1e54a4291c08ed1ef2dab183
 
 <h2>Software Packages used:</h2>
 
@@ -84,7 +104,11 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE@6.1.0
       Include file:  CMSIS/Core/Include/tz_context.h
+<<<<<<< HEAD
 Build Time Elapsed:  00:00:04
+=======
+Build Time Elapsed:  00:00:05
+>>>>>>> 845630e2992c23af1e54a4291c08ed1ef2dab183
 </pre>
 </body>
 </html>

@@ -1,1 +1,0 @@
-GEN_CSRCS += _BeepOn_alpha_25x25.c _Lock_alpha_15x23.c _BeepOff_alpha_25x25.c _dischecked_alpha_20x20.c _checked_alpha_18x18.c

@@ -5,7 +5,10 @@
 #include "Gui_Task.h"
 #include "st7789.h"
 #include "SystemSetting.h"  // 引入头文件
+<<<<<<< HEAD
 #include "Gui_Task.h"
+=======
+>>>>>>> 845630e2992c23af1e54a4291c08ed1ef2dab183
 /* —— 内部状态 —— */
 static lv_obj_t *s2_btns[7];
 static uint8_t   s2_cnt = 0;
@@ -35,6 +38,10 @@ static lv_obj_t *s2_iface_cont = NULL;  // 指向 ui->screen_2_InterfaceIfoContain
 static lv_obj_t *s2_about_cont = NULL;  // 指向 ui->screen_2_AboutIfoContainer
 
 /* 可见性判断   容器4&6&7的互斥*/
+<<<<<<< HEAD
+=======
+/* —— 显隐互斥：只显示 target，其余容器全部隐藏 —— */
+>>>>>>> 845630e2992c23af1e54a4291c08ed1ef2dab183
 /* —— 显隐互斥：只显示 target（连父级一起 un-hide），其余容器隐藏 —— */
 static inline void s2_show_only(lv_obj_t *target){
     lv_obj_t *all[] = { s2_iface_cont, s2_about_cont, s2_outstate_cont };
@@ -48,6 +55,7 @@ static inline void s2_show_only(lv_obj_t *target){
         }
     }
 }
+<<<<<<< HEAD
 
 
 //***********************封装函数*************************************
@@ -78,27 +86,67 @@ void exit_edit_mode(lv_group_t *group, lv_obj_t *obj, bool *in_group_flag, lv_ob
     // 如果控件在 group 中，移除它
     if (obj && *in_group_flag) {
         lv_group_remove_obj(obj);
+=======
+//***********************封装函数*************************************
+//事件回调和样式设置函数
+void add_event_and_style(lv_obj_t *obj, lv_event_cb_t event_cb, lv_group_t *group, bool *in_group_flag) {
+    if (!obj || !event_cb) return;
+
+    // 添加事件回调
+    lv_obj_add_event_cb(obj, event_cb, LV_EVENT_KEY, NULL);
+    // 添加样式
+    lv_obj_add_style(obj, &s2_focus_style, LV_PART_MAIN | LV_STATE_FOCUSED);
+
+    // 将控件添加到 group 中（如果还没有添加）
+    if (!(*in_group_flag)) {
+        lv_group_add_obj(group, obj);
+        *in_group_flag = true;
+    }
+}
+
+// 退出编辑模式
+static void exit_edit_mode(lv_group_t *g, lv_obj_t *label, bool *in_group_flag, lv_obj_t *focus_obj) {
+    if (g) lv_group_set_editing(g, false);  // 退出编辑态
+
+    // 如果有标签对象，移出 group
+    if (label && *in_group_flag) {
+        lv_group_remove_obj(label);
+>>>>>>> 845630e2992c23af1e54a4291c08ed1ef2dab183
         *in_group_flag = false;
     }
 
     // 焦点回到指定的对象
     if (focus_obj) {
+<<<<<<< HEAD
         lv_group_focus_obj(focus_obj);  // 焦点设置到默认按钮
+=======
+        lv_group_focus_obj(focus_obj);
+>>>>>>> 845630e2992c23af1e54a4291c08ed1ef2dab183
     }
 
     lv_event_stop_bubbling(NULL);  // 停止事件冒泡
 }
 
 
+<<<<<<< HEAD
 
 //***********************封装函数 END*************************************
 
 
 //***************1.蜂鸣器***********************
+=======
+//***********************封装函数 END*************************************
+
+//1.蜂蜜器
+>>>>>>> 845630e2992c23af1e54a4291c08ed1ef2dab183
 /* —— Beep 值编辑相关 —— */
 static bool      s2_beep_cb_added = false;
 static bool s2_beep_in_group = false;   // BeepVal 是否已加入 group
 static lv_obj_t *s2_beep_val = NULL;   //蜂鸣器标签
+<<<<<<< HEAD
+=======
+
+>>>>>>> 845630e2992c23af1e54a4291c08ed1ef2dab183
 static inline void ui_click_beep(uint32_t key){ 
     if(!current_settings.beep_state) return;      // 用户关闭蜂鸣器
     switch(key){
@@ -130,7 +178,15 @@ static inline void ui_click_beep(uint32_t key){
     default: break; // 旋钮上下不响
     }
 }
+<<<<<<< HEAD
 //蜂鸣器标签开关
+=======
+
+
+
+
+
+>>>>>>> 845630e2992c23af1e54a4291c08ed1ef2dab183
 static inline void s2_set_topbar_beep_icon(bool on)
 {
     if(guider_ui.screen_1_Beep_on && guider_ui.screen_1_Beep_off){
@@ -144,6 +200,10 @@ static inline void s2_set_topbar_beep_icon(bool on)
     }
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 845630e2992c23af1e54a4291c08ed1ef2dab183
 /* 刷新标签文本 */
 static void s2_beep_refresh(void){
 if (!s2_beep_val) return;
@@ -153,6 +213,7 @@ if (!s2_beep_val) return;
   s2_set_topbar_beep_icon( current_settings.beep_state); // 同步屏幕1顶栏图标
 }
 
+<<<<<<< HEAD
 /* 在 BeepVal 上的按键处理：UP/DOWN 切换文字；ENTER 退出编辑；MENU 回首页 */
 static void s2_beep_edit_key_cb(lv_event_t *e) {
     if (lv_event_get_code(e) != LV_EVENT_KEY) return;
@@ -160,6 +221,17 @@ static void s2_beep_edit_key_cb(lv_event_t *e) {
     uint32_t key = lv_event_get_key(e);  
     lv_obj_t *obj = lv_event_get_target(e);
     lv_group_t *g = lv_obj_get_group(obj);
+=======
+
+/* 在 BeepVal 上的按键处理：UP/DOWN 切换文字；ENTER 退出编辑；MENU 回首页 */
+static void s2_beep_edit_key_cb(lv_event_t *e){
+  
+    if (lv_event_get_code(e) != LV_EVENT_KEY) return;
+  
+    uint32_t   key = lv_event_get_key(e);  
+    lv_obj_t  *obj = lv_event_get_target(e);
+    lv_group_t *g  = lv_obj_get_group(obj);
+>>>>>>> 845630e2992c23af1e54a4291c08ed1ef2dab183
 
     // 如果按下回车或编码器，退出编辑模式
     if (key == LV_KEY_ENTER || key == LV_KEY_ENCODER) {
@@ -172,16 +244,25 @@ static void s2_beep_edit_key_cb(lv_event_t *e) {
         show_page(PAGE_HOME);
         return;
     }
+<<<<<<< HEAD
     // 如果按键是上下，切换蜂鸣器状态
     if (key == LV_KEY_UP || key == LV_KEY_DOWN) {
         current_settings.beep_state = !current_settings.beep_state;  // 翻转状态
         save_settings_to_eeprom(&current_settings); // 保存设置到 EEPROM
         s2_beep_refresh();  // 刷新 UI 和硬件状态
+=======
+
+    if (key == LV_KEY_UP || key == LV_KEY_DOWN){
+         current_settings.beep_state = ! current_settings.beep_state;  // 每转一次就翻转
+        save_settings_to_eeprom(&current_settings); // 保存到 EEPROM
+        s2_beep_refresh();//刷新beep
+>>>>>>> 845630e2992c23af1e54a4291c08ed1ef2dab183
         lv_event_stop_bubbling(e);
         return;
     }
 }
 
+<<<<<<< HEAD
 /* 进入 BeepVal 的编辑模式 */
 static void s2_enter_beep_edit(lv_group_t *g) {
     if (!s2_beep_val || !g) return;
@@ -262,11 +343,96 @@ static void s2_light_edit_key_cb(lv_event_t *e) {
 
         // 刷新 UI 和硬件
         s2_light_refresh();  // 刷新 UI 显示
+=======
+
+/* 进入 BeepVal 的编辑模式 */
+/* 进入 BeepVal 的编辑模式 */
+static void s2_enter_beep_edit(lv_group_t *g) {
+    if (!s2_beep_val || !g) return;
+
+    // 直接为控件添加事件回调和样式，不再检查是否已添加
+    add_event_and_style(s2_beep_val, s2_beep_edit_key_cb, g, &s2_beep_in_group);
+
+    s2_beep_refresh();  // 进入时先把文字刷新到当前状态
+
+    lv_group_focus_obj(s2_beep_val);  // 焦点给标签
+    lv_group_set_editing(g, true);    // 切到“编辑态”：编码器键交给标签
+}
+
+
+
+//2.背光亮度
+/* —— BackLight 亮度编辑相关 —— */
+static lv_obj_t *s2_light_val = NULL;   // 指向 ui->screen_2_LightVal
+static int16_t   s2_light = 100;        // 0~100，初始化 100
+static bool      s2_light_cb_added = false;
+static bool      s2_light_in_group = false;  // 是否已加入 group
+
+static const int16_t s2_light_min = 20, s2_light_max = 100, s2_light_step = 1;
+
+static void s2_light_apply(void){
+    uint8_t pct = (uint8_t)s2_light;
+    if(pct < s2_light_min) pct = s2_light_min;   // 20
+    if(pct > s2_light_max) pct = s2_light_max;   // 100
+    SetBackLight(pct);
+}
+
+static void s2_light_refresh(void){
+    if (!s2_light_val) return;
+    if (s2_light < s2_light_min) s2_light = s2_light_min;  // 30
+    if (s2_light > s2_light_max) s2_light = s2_light_max;  // 100
+    lv_label_set_text_fmt(s2_light_val, "%d%%", (int)s2_light);  // 想带百分号就用 "%d%%"
+    s2_light_apply();  // ★ 每次刷新都把数值同步到背光
+}
+
+
+/* 在 LightVal 上的按键处理：UP/DOWN 调整数值；ENTER/ENCODER 退出；MENU 回首页 */
+static void s2_light_edit_key_cb(lv_event_t *e){
+    if (lv_event_get_code(e) != LV_EVENT_KEY) return;
+    uint32_t   key = lv_event_get_key(e);
+    lv_obj_t  *obj = lv_event_get_target(e);
+    lv_group_t *g  = lv_obj_get_group(obj);
+
+    if (key == LV_KEY_UP || key == LV_KEY_NEXT){
+        s2_light += s2_light_step;
+        s2_light_refresh();
+        lv_event_stop_bubbling(e);
+        return;
+    }
+    if (key == LV_KEY_DOWN || key == LV_KEY_PREV){
+        s2_light -= s2_light_step;
+        s2_light_refresh();
+        lv_event_stop_bubbling(e);
+        return;
+    }
+
+    /* 退出编辑：旋钮按下在你的平台可能是 LV_KEY_ENCODER */
+    if (key == LV_KEY_ENTER || key == LV_KEY_ENCODER){
+        if (g) lv_group_set_editing(g, false);
+        /* 退出后焦点回到“背光亮度”按钮（数组 1 号） */
+        if (g) lv_group_focus_obj(s2_btns[1]);
+        if (s2_light_in_group){
+            lv_group_remove_obj(s2_light_val);
+            s2_light_in_group = false;
+        }
+        lv_event_stop_bubbling(e);
+        return;
+    }
+
+    if (key == LV_KEY_MENU){
+        if (g) lv_group_set_editing(g, false);
+        if (s2_light_in_group){
+            lv_group_remove_obj(s2_light_val);
+            s2_light_in_group = false;
+        }
+        show_page(PAGE_HOME);
+>>>>>>> 845630e2992c23af1e54a4291c08ed1ef2dab183
         lv_event_stop_bubbling(e);
         return;
     }
 }
 
+<<<<<<< HEAD
 // 进入背光亮度编辑模式
 static void s2_enter_light_edit(lv_group_t *g) {
     if (!s2_light_val || !g) return;
@@ -275,6 +441,23 @@ static void s2_enter_light_edit(lv_group_t *g) {
     // 刷新标签文本，确保显示正确的亮度
     s2_light_refresh();
 
+=======
+/* 进入 LightVal 的编辑模式 */
+static void s2_enter_light_edit(lv_group_t *g){
+    if (!s2_light_val || !g) return;
+    if (!s2_light_cb_added){
+        lv_obj_add_event_cb(s2_light_val, s2_light_edit_key_cb, LV_EVENT_KEY, NULL);
+        lv_obj_add_style(s2_light_val, &s2_focus_style, LV_PART_MAIN | LV_STATE_FOCUSED);
+        s2_light_cb_added = true;
+    }
+    s2_light_refresh();  // 进入时刷新显示
+    if (!s2_light_in_group){
+        lv_group_add_obj(g, s2_light_val);
+        s2_light_in_group = true;
+    }
+    lv_group_focus_obj(s2_light_val);  // 焦点给 LightVal
+    lv_group_set_editing(g, true);     // 切到“编辑态”
+>>>>>>> 845630e2992c23af1e54a4291c08ed1ef2dab183
 }
 
 
@@ -282,10 +465,15 @@ static void s2_enter_light_edit(lv_group_t *g) {
 /* —— 存储组（0~200）编辑相关 —— */
 static lv_obj_t *s2_mem_val = NULL;     // 指向 ui->screen_2_GroupVal
 static lv_obj_t *label_mem_num = NULL;     // 指向 ui->screen_1_label_mem_num
+<<<<<<< HEAD
+=======
+static int16_t   s2_mem = 0;            // 0~30，初始化 0（需要别的初值就改这里）
+>>>>>>> 845630e2992c23af1e54a4291c08ed1ef2dab183
 static bool      s2_mem_cb_added = false;
 static bool      s2_mem_in_group = false;
 static const int16_t s2_mem_min = 0, s2_mem_max = 200, s2_mem_step = 1;
 
+<<<<<<< HEAD
 // 刷新存储组值的标签
 static void s2_mem_refresh(void) {
     if (!s2_mem_val) return;
@@ -344,11 +532,60 @@ static void s2_mem_edit_key_cb(lv_event_t *e) {
 
         // 刷新 UI 和硬件
         s2_mem_refresh();  // 刷新 UI 显示
+=======
+static void s2_mem_refresh(void){
+    if (!s2_mem_val) return;
+    if (s2_mem < s2_mem_min) s2_mem = s2_mem_min;
+    if (s2_mem > s2_mem_max) s2_mem = s2_mem_max;
+    lv_label_set_text_fmt(label_mem_num, "%03d",(int)s2_mem); 
+    lv_label_set_text_fmt(s2_mem_val, "%03d", (int)s2_mem);
+}
+
+/* 在 Memscreen_2_GroupVal 上的键处理：UP/DOWN 调整数值；ENTER/ENCODER 退出；MENU 回首页 */
+static void s2_mem_edit_key_cb(lv_event_t *e){
+    if (lv_event_get_code(e) != LV_EVENT_KEY) return;
+    uint32_t   key = lv_event_get_key(e);
+    lv_obj_t  *obj = lv_event_get_target(e);
+    lv_group_t *g  = lv_obj_get_group(obj);
+
+    if (key == LV_KEY_UP || key == LV_KEY_NEXT){
+        s2_mem += s2_mem_step;
+        s2_mem_refresh();
+        lv_event_stop_bubbling(e);
+        return;
+    }
+    if (key == LV_KEY_DOWN || key == LV_KEY_PREV){
+        s2_mem -= s2_mem_step;
+        s2_mem_refresh();
+        lv_event_stop_bubbling(e);
+        return;
+    }
+
+    if (key == LV_KEY_ENTER || key == LV_KEY_ENCODER){
+        if (g) lv_group_set_editing(g, false);
+        if (g) lv_group_focus_obj(s2_btns[2]);  // 2号 = screen_2_btn_MemGroup
+        if (s2_mem_in_group){
+            lv_group_remove_obj(s2_mem_val);
+            s2_mem_in_group = false;
+        }
+        lv_event_stop_bubbling(e);
+        return;
+    }
+
+    if (key == LV_KEY_MENU){
+        if (g) lv_group_set_editing(g, false);
+        if (s2_mem_in_group){
+            lv_group_remove_obj(s2_mem_val);
+            s2_mem_in_group = false;
+        }
+        show_page(PAGE_HOME);
+>>>>>>> 845630e2992c23af1e54a4291c08ed1ef2dab183
         lv_event_stop_bubbling(e);
         return;
     }
 }
 
+<<<<<<< HEAD
 
 
 // 进入存储组编辑模式
@@ -363,11 +600,36 @@ static void s2_enter_mem_edit(lv_group_t *g) {
 
 //4.输出状态
 
+=======
+/* 进入 Memscreen_2_GroupVal 的编辑模式 */
+static void s2_enter_mem_edit(lv_group_t *g){
+    if (!s2_mem_val || !g) return;
+    if (!s2_mem_cb_added){
+        lv_obj_add_event_cb(s2_mem_val, s2_mem_edit_key_cb, LV_EVENT_KEY, NULL);
+        lv_obj_add_style(s2_mem_val, &s2_focus_style, LV_PART_MAIN | LV_STATE_FOCUSED);
+        s2_mem_cb_added = true;
+    }
+    s2_mem_refresh();
+    if (!s2_mem_in_group){
+        lv_group_add_obj(g, s2_mem_val);
+        s2_mem_in_group = true;
+    }
+    lv_group_focus_obj(s2_mem_val);
+    lv_group_set_editing(g, true);
+}
+
+
+
+//4.输出状态
+
+static bool      s2_ato_on  = false;    // true=打开, false=关闭
+>>>>>>> 845630e2992c23af1e54a4291c08ed1ef2dab183
 static bool      s2_ato_cb_added = false;
 static bool      s2_ato_in_group = false;
 /* —— Ato（自动）编辑相关 —— */
 static lv_obj_t *s2_ato_val = NULL;     // 指向 ui->screen_2_AtoVal
 
+<<<<<<< HEAD
 /* —— 顶栏 Keep 图标显隐 —— */
 // 同步图标的显示状态
 static inline void s2_set_topbar_keep_icon(bool on) {
@@ -457,10 +719,75 @@ static void s2_ato_edit_key_cb(lv_event_t *e) {
         s2_ato_refresh();  // 刷新 UI 显示
         lv_event_stop_bubbling(e);
         return;
+=======
+
+
+/* —— 顶栏 Keep 图标显隐 —— */
+static inline void s2_set_topbar_keep_icon(bool on)
+{
+    /* 注意：把“screen_1_label_KEEP”替换成你工程里 img_keep 的真实变量名 */
+    if (guider_ui.screen_1_label_KEEP){
+        if (on)  lv_obj_clear_flag(guider_ui.screen_1_label_KEEP, LV_OBJ_FLAG_HIDDEN);
+        else     lv_obj_add_flag  (guider_ui.screen_1_label_KEEP, LV_OBJ_FLAG_HIDDEN);
+    }
+}
+
+/* 刷新 Ato 标签文本 */
+static void s2_ato_refresh(void){
+    if(!s2_ato_val) return;
+    lv_label_set_text(s2_ato_val, s2_ato_on ? "ON" : "OFF");  // 如担心中文，可改 "ON"/"OFF"
+    s2_set_topbar_keep_icon(s2_ato_on);
+  
+}
+
+/* 在 AtoVal 上的键处理：UP/DOWN/NEXT/PREV 切换；ENTER/ENCODER 退出；MENU 回首页 */
+static void s2_ato_edit_key_cb(lv_event_t *e){
+    if (lv_event_get_code(e) != LV_EVENT_KEY) return;
+    uint32_t   key = lv_event_get_key(e);
+    lv_obj_t  *obj = lv_event_get_target(e);
+    lv_group_t *g  = lv_obj_get_group(obj);
+  /* ★ 无论什么键，只要在 AtoVal 的编辑回调里，就把容器亮出来 */
+    s2_show_only(s2_outstate_cont);
+    switch(key){
+    case LV_KEY_UP:
+    case LV_KEY_DOWN:
+    case LV_KEY_NEXT:
+    case LV_KEY_PREV:
+        s2_ato_on = !s2_ato_on;
+        s2_ato_refresh();
+   //     s2_show_only(s2_outstate_cont);   // 切换时显示“输出状态”容器，并隐藏其它容器
+        lv_event_stop_bubbling(e);
+        return;
+
+    case LV_KEY_ENTER:
+    case LV_KEY_ENCODER:
+        if (g) lv_group_set_editing(g, false);
+        if (g) lv_group_focus_obj(s2_btns[3]);  // 3号按钮是 Ato
+        if (s2_ato_in_group){
+            lv_group_remove_obj(s2_ato_val);
+            s2_ato_in_group = false;
+        }
+        lv_event_stop_bubbling(e);
+        return;
+
+    case LV_KEY_MENU:
+        if (g) lv_group_set_editing(g, false);
+        if (s2_ato_in_group){
+            lv_group_remove_obj(s2_ato_val);
+            s2_ato_in_group = false;
+        }
+        show_page(PAGE_HOME);
+        lv_event_stop_bubbling(e);
+        return;
+
+    default:
+        break;
+>>>>>>> 845630e2992c23af1e54a4291c08ed1ef2dab183
     }
 }
 
 /* 进入 AtoVal 的编辑模式 */
+<<<<<<< HEAD
 static void s2_enter_ato_edit(lv_group_t *g) {
     if (!s2_ato_val || !g) return;
     // 使用封装的函数添加事件回调和样式，并加入到 group 中
@@ -472,6 +799,24 @@ static void s2_enter_ato_edit(lv_group_t *g) {
 
 
 
+=======
+static void s2_enter_ato_edit(lv_group_t *g){
+    if (!s2_ato_val || !g) return;
+    if (!s2_ato_cb_added){
+        lv_obj_add_event_cb(s2_ato_val, s2_ato_edit_key_cb, LV_EVENT_KEY, NULL);
+        lv_obj_add_style(s2_ato_val, &s2_focus_style, LV_PART_MAIN | LV_STATE_FOCUSED);
+        s2_ato_cb_added = true;
+    }
+    s2_ato_refresh();
+    if (!s2_ato_in_group){
+        lv_group_add_obj(g, s2_ato_val);
+        s2_ato_in_group = true;
+    }
+    lv_group_focus_obj(s2_ato_val);
+    lv_group_set_editing(g, true);
+}
+
+>>>>>>> 845630e2992c23af1e54a4291c08ed1ef2dab183
 //5.Language
 /* —— 语言切换 —— */
 /* —— 语言（Lang）编辑相关 —— */
@@ -634,7 +979,10 @@ static void s2_btn_key_cb(lv_event_t *e){
 /* 1) 记录 7 个按钮指针 */
 void SET_Page_init(lv_ui *ui)
 {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 845630e2992c23af1e54a4291c08ed1ef2dab183
     /* 采集 7 个按钮指针 */
     s2_cnt = 0;
     s2_btns[s2_cnt++] = ui->screen_2_btn_Beep;
@@ -644,10 +992,20 @@ void SET_Page_init(lv_ui *ui)
     s2_btns[s2_cnt++] = ui->screen_2_btn_Lang;
     s2_btns[s2_cnt++] = ui->screen_2_btn_IoIfo;
     s2_btns[s2_cnt++] = ui->screen_2_btn_About;
+<<<<<<< HEAD
+=======
+
+      printf("UI Buttons Initialized\n");
+
+
+  
+  
+>>>>>>> 845630e2992c23af1e54a4291c08ed1ef2dab183
     /* 聚焦样式初始化一次 */
     s2_init_focus_style_once();
 
     /* 只在初始化时：给每个按钮绑定键盘回调 & 聚焦样式 */
+<<<<<<< HEAD
     for(uint8_t i = 0; i < s2_cnt; i++) {
         lv_obj_t *btn = s2_btns[i];
         if (!btn) continue;
@@ -660,6 +1018,18 @@ void SET_Page_init(lv_ui *ui)
     }
     
     
+=======
+    for(uint8_t i=0;i<s2_cnt;i++){
+        lv_obj_t *btn = s2_btns[i];
+        if(!btn) continue;
+        lv_obj_add_flag(btn, LV_OBJ_FLAG_CLICK_FOCUSABLE);
+        lv_obj_add_style(btn, &s2_focus_style, LV_PART_MAIN | LV_STATE_FOCUSED);
+
+        /* 先移除可能已有的同回调，再绑定一次，保证不会重复 */
+        lv_obj_remove_event_cb(btn, s2_btn_key_cb);
+        lv_obj_add_event_cb(btn, s2_btn_key_cb, LV_EVENT_KEY, NULL);
+    }
+>>>>>>> 845630e2992c23af1e54a4291c08ed1ef2dab183
     //1.BEEP
     /* 记录 BeepVal 标签对象，并初始化显示文字 */
     s2_beep_val = ui->screen_2_BeepVal;
@@ -675,6 +1045,10 @@ void SET_Page_init(lv_ui *ui)
     /* 记录 AtoVal 标签对象并刷新一次 */
     s2_ato_val = ui->screen_2_AtoVal;
     s2_ato_refresh();
+<<<<<<< HEAD
+=======
+    s2_set_topbar_keep_icon(s2_ato_on);
+>>>>>>> 845630e2992c23af1e54a4291c08ed1ef2dab183
     /* 记录“输出状态信息”容器（默认隐藏） */
     s2_outstate_cont = ui->screen_2_cont_outStateIfoContainer;
     if (s2_outstate_cont) lv_obj_add_flag(s2_outstate_cont, LV_OBJ_FLAG_HIDDEN);
